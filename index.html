@@ -4,59 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Brenton Gray | Portfolio</title>
+    <title>Brenton Gray's Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header id="header">
         <h1>Brenton Gray</h1>
-        
+        <h2>Software Engineer</h2>
     </header>
 
-    <subheader>
-        <h3>Software Engineer</h3>
-    </subheader>
+    <div class="section-container">
+        <nav class="fancy-border">
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
 
-    <nav class="fancy-border">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+        <section class="fancy-border" id="about">
+            <h3>About Me</h3>
+            <p>
+                Highly skilled United States Marine Corps veteran with 
+                20 years of experience in technical fields, specializing 
+                in software development and complex problem-solving. 
+                Possesses over two years of experience developing 
+                high-quality software in C++ and Java, with a strong 
+                background in leadership, project management, and 
+                process improvement. Extensive communication and 
+                collaboration skills, with a proven ability to rapidly 
+                acquire and implement new technical proficiencies. Holds 
+                an active Secret Security Clearance.
+            </p>
+        </section>
 
-    <section class="fancy-border" id="about">
-        <h2>About Me</h2>
-        <p>
-            Highly skilled United States Marine Corps veteran with 
-            20 years of experience in technical fields, specializing 
-            in software development and complex problem-solving. 
-            Possesses over two years of experience developing 
-            high-quality software in C++ and Java, with a strong 
-            background in leadership, project management, and 
-            process improvement. Extensive communication and 
-            collaboration skills, with a proven ability to rapidly 
-            acquire and implement new technical proficiencies. Holds 
-            an active Secret Security Clearance.
-        </p>
-    </section>
+        <section class="fancy-border" id="projects">
+            <h3>Projects</h3>
+            <ul id="github-projects"></ul>
 
-    <section class="fancy-border" id="projects">
-        <h2>My Projects</h2>
-        <ul>
-            <li>Project 1: <a href="https://github.com/gray-skull/Credit-Card-Number-Validator">C++: Credit Card Number Validator</a></li>
-            <li>Project 2: <a href="https://github.com/gray-skull/Tennis-League-MySQL-Front-End">Java/SQL: MySQL Db Front Endk</a></li>
-        </ul>
-    </section>
+            <script>
+                // Function to fetch repository data from GitHub
+                async function fetchGitHubRepos() {
+                    try {
+                        const response = await fetch(`https://api.github.com/users/gray-skull/repos`);
+                        const repos = await response.json();
+        
+                        // Get the list element where we will display the projects
+                        const projectList = document.getElementById('github-projects');
 
-    <section class="fancy-border" id="contact">
-        <h2>Contact Me</h2>
-        <p>Email: <a href="emailto:brenton.j.gray@outlook.com">brenton.j.gray@outlook.com</a></p>
-    </section>
+                        // filter out forked repos
+                        const myRepos = repos.filter(repo => !repo.fork);
+        
+                        myRepos.forEach(repo => {
+                            // Create a list item for each repository
+                            const listItem = document.createElement('li');
+        
+                            // Add a link to the repository
+                            const repoLink = document.createElement('a');
+                            repoLink.href = repo.html_url;
+                            repoLink.textContent = repo.name;
+        
+                            // Add the repository description
+                            const description = document.createElement('p');
+                            description.textContent = repo.description;
+        
+                            // Append the link and description to the list item
+                            listItem.appendChild(repoLink);
+                            listItem.appendChild(description);
+        
+                            // Append the list item to the project list
+                            projectList.appendChild(listItem);
+                        });
+                    } catch (error) {
+                        console.error('Error fetching GitHub repositories:', error);
+                    }
+                }
+        
+                // Call the function to fetch GitHub repos when the page loads
+                fetchGitHubRepos();
+            </script>
 
+        </section>
+
+        <section class="contact-border" id="contact">
+            <h3>Contact Me</h3>
+            <p>If you have any questions, please feel free to <a href="mailto:brenton.j.gray@outlook.com">email me</a>!</p>
+        </section>
+    </div>
+    
     <footer>
-        <p>&copy; 2024 Brenton Gray</p>
+        <h4>&copy; 2024 Brenton Gray</h4>
     </footer>
 
 </body>

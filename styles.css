@@ -1,44 +1,86 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family:'Trebuchet MS', sans-serif;
     margin: 0;
     padding: 0;
     background-image: url('images/background2.webp');
     background-size: contain;
     background-repeat: repeat;
     background-position: center;
-    margin: 0;
-    padding: 0;
     
 }
 
 .fancy-border {
     position: relative;
     border: 2px solid #000000;
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 30px 0px 30px 0px;
+    padding: 0px 20px;
+    margin: 10px auto;
     background-color: #333;
     max-width: 800px;
-    width: 80%;
+    width: 90%;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
     z-index: 1; /* Ensure it stays on top */
-
 }
 
-/* Pseudo-element for second animated border */
-.fancy-border::before {
-    content: ""; /* Required for pseudo-element */
-    position: absolute; /* Position it outside the main border */
-    top: -5px; /* Positioning the second border outside the first */
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border: 2px dashed #00000083; /* Second border color */
-    border-radius: 30px 0px 30px 0px; /* Match or extend the main border’s radius */
-    border-style: 
-    opacity: 0; /* Start with fully transparent */
-    z-index: -1; /* Ensure it stays behind the original border */
-    animation: fadeBorder 4s infinite; /* Apply animation */
+.contact-border {
+    position: relative;
+    border: 2px solid #000000;
+    border-radius: 0px 0px 30px 30px;
+    padding: 0px 20px;
+    margin: 10px auto;
+    background-color: #333;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+    z-index: 1; /* Ensure it stays on top */
+}
+
+.section-container {
+    position: relative;
+    padding: 0px;
+    margin: 0px auto;
+    max-width: 800px;
+    width: 90%;
+}
+
+/* Pseudo-element for animated border */
+.section-container::before {
+    content: "";
+    position: absolute;
+    top: -10px;           /* Move the border slightly outside the container */
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 4px dashed #ffffff;  /* Border color */
+    border-radius: 30px;        /* Round the corners */
+    opacity: 0;
+    z-index: -1;
+    animation: fadeBorder 3s infinite;  /* Border animation */
+}
+
+h1 {
+    text-align: center;
+    text-shadow: 2px 2px 8px #000000;
+    color: #FFFFFF;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    text-align: center;
+    text-shadow: 2px 2px 8px #000000;
+    color: #FFFFFF;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    text-align: left;
+    color: #FFFFFF;
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
 
 @keyframes fadeBorder {
@@ -54,34 +96,31 @@ body {
 }
 
 header {
-    color: black;
     text-align: center;
+    text-shadow: 2px 2px 10px #000000;
+    color: #FFFFFF;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin: 0;
-    padding: 0;
-}
-
-subheader {
-    color: black;
-    text-align: center;
-    margin: 0;
-    padding: 0;
 }
 
 nav {
     text-align: center;
+    border-radius: 30px 30px 0px 0px;
 }
 
 nav ul {
     display: flex;
     justify-content: center;
     padding: 0;
-    margin: 0;
+    margin: 10px;
     list-style: none;
     flex-direction: row;
+    
 }
 
 nav ul li {
-    margin: 0 20px;
+    margin: 0 30px;
 }
 
 nav ul li a {
@@ -89,26 +128,32 @@ nav ul li a {
 }
 
 a {
-    color: #00aeda;
+    color: #4ed5f7;
     text-decoration: none;
 }
 
 a:hover {
-    color: #00aeda;
+    color: #4ed5f7;
     text-decoration: underline;
 }
 
 a:visited {
-    color: #007e9e;
+    color: #5d7e86;
 }
 
 section {
     color: #FFFFFF;
+    text-align: left;
+}
+
+section ul {
+    list-style: bullet;
+    padding: 20px 0px 0px 20px;
+    margin: 0px;
 }
 
 footer {
     color: black;
     text-align: center;
     position: relative;
-    bottom: 0;
 }
