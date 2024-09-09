@@ -7,14 +7,14 @@ This is a personal portfolio website showcasing my projects and skills. It dynam
 - Responsive Design: Adapts to various screen sizes, ensuring a seamless experience across mobile, tablet, and desktop devices.
 - Project Display: Presents projects fetched from GitHub in a user-friendly layout.
 - Contact Form: Allows visitors to easily get in touch via an integrated contact form.
-- Visitor Counter: Tracks the number of visitors to the site using PHP.
+- ~~Visitor Counter: Tracks the number of visitors to the site using PHP.~~
 
 ## Technologies Used
 - HTML5: Structures the content and sections of the website.
 - CSS3: Provides responsive styling for consistent design across devices.
 - JavaScript: Utilizes the GitHub API to dynamically pull and render repository information on the website.
 - GitHub API: Fetches live data about repositories, including project names, descriptions, and links.
-- PHP: Handles server-side functionality, such as the visitor counter and form submissions.
+- ~~PHP: Handles server-side functionality, such as the visitor counter and form submissions.~~
 - Deployment: The site is hosted using GitHub Pages.
 
 ## Setup Instructions
@@ -28,4 +28,4 @@ This is a personal portfolio website showcasing my projects and skills. It dynam
 ## How to Use
 1. Open index.php in a web browser.
 2. Customize the content or API calls to reflect your GitHub profile or specific projects.
-3. Ensure PHP is enabled if using the visitor counter feature.
+3. ~~Ensure PHP is enabled if using the visitor counter feature.~~
