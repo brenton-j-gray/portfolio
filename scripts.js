@@ -36,8 +36,7 @@ async function fetchGitHubRepos() {
     }
 }
 
-// Call the function to fetch GitHub repos when the page loads
-fetchGitHubRepos();
+
 
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
