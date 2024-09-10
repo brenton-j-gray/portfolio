@@ -17,12 +17,10 @@
 
     <div class="section-container">
         <nav class="fancy-border">
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#interests">Interests</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+                <button><a href="#about">About</a></button>
+                <button><a href="#projects">Projects</a></button>
+                <button><a href="#interests">Interests</a></button>
+                <button><a href="#contact">Contact</a></button>
         </nav>
 
         <section class="fancy-border" id="about">
@@ -87,6 +85,51 @@
                 fetchGitHubRepos();
             </script>
 
+            <script>
+                document.querySelectorAll('nav a').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetSection = document.getElementById(targetId);
+
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+
+                        setTimeout(() => {
+                            targetSection.classList.add('flash');
+                        }, 500);
+
+                        setTimeout(() => {
+                            targetSection.classList.remove('flash');
+                        }, 1500);
+                    });
+                });
+            </script>
+
+            <script>
+                // Function to simulate hover effect with timeout on touch devices
+                function simulateHoverOnTouch() {
+                    const elements = document.querySelectorAll('.fancy-border');
+                    
+                    elements.forEach(element => {
+                        element.addEventListener('touchstart', () => {
+                            // Apply the "hover" effect by adding the class
+                            element.classList.add('hover-active');
+
+                            // Remove the "hover" effect after a timeout
+                            setTimeout(() => {
+                                element.classList.remove('hover-active');
+                            }, 300);
+                        });
+                    });
+                }
+
+                // Detect touch devices and apply the function
+                if ('ontouchstart' in window) {
+                    simulateHoverOnTouch();
+                }
+            </script>
+
         </section>
 
         <section class="fancy-border" id="interests">
@@ -98,7 +141,7 @@
             </ul>
         </section>
 
-        <section class="contact-border" id="contact">
+        <section class="fancy-border contact-border" id="contact">
             <h3>Contact Me</h3>
             <p>If you have any questions, please feel free to <a href="mailto:brenton.j.gray@outlook.com">email me</a>!</p>
         </section>
