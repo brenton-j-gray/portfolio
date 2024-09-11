@@ -35,9 +35,11 @@ async function fetchGitHubRepos() {
         console.error('Error fetching GitHub repositories:', error);
     }
 }
+// Call the function to fetch the repositories
+fetchGitHubRepos();
 
-
-
+// function to move the screen after a nav link is clicked
+// also adds a flash effect to the target section
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
