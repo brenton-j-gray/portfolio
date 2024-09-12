@@ -5,6 +5,7 @@
     --quaternary-color: #857e6a;
     --pixel-font: 'Press Start 2P', cursive;
     --shadow: 10px 10px 15px var(--secondary-color);
+    
 }
 
 @font-face {
@@ -12,59 +13,27 @@
     src: url('fonts/PressStart2P-Regular.ttf') format('truetype');
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family:'Trebuchet MS', sans-serif;
-    background-image: url('images/background2.webp');
-    background-repeat: repeat;
-    background-position: center;
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1px 1px;
-    padding: 1px;
-}
-
 .fancy-border {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
     align-items: stretch;
-    align-content: flex-start;
     position: relative;
     border: 5px solid var(--primary-color);
     padding: 20px;
-    margin: 8px auto;
+    margin: 10px;
     background-color: var(--tertiary-color);
-
-    max-height: 100%;
-    width: 85%;
+    width: 90%;
     box-shadow: var(--shadow);
     z-index: 1; /* Ensure it stays on top */
     transition: transform 0.5s ease;
 }
 
-@media (max-width: 600px) {
-    .fancy-border {
-        padding: 10px;
-        margin: 4px auto;
-    }
-}
-
-
 .fancy-border:hover {
-    transform: scale(1.03);
+    transform: scale(1.01);
 }
 
 .fancy-border.hover-active {
-    transform: scale(1.03);
+    transform: scale(1.01);
 }
 
 .nav-links {
@@ -87,25 +56,27 @@ body {
     justify-content: center;
     align-items: center;
     align-content: center;
-
-    margin: 0px 1px 0px 1px;
-    width: auto;
-    padding: 1px 1px 1px 1px;
+    margin: 20px 0px 20px 0px;
+    width: 95%;
+    max-width:  960px;
+    padding: 10px 1px 10px 1px;
 }
 
 .section-container::before {
     content: "";
     position: absolute;
-    top: -12px;           /* Move the border slightly outside the container */
-    left: -2px;  
-    right: -2px;
-    bottom: -12px;  
+    top: -1px;           /* Move the border slightly outside the container */
+    left: -1px;  
+    right: -1px;
+    bottom: -1px;
+    background-color: #ffffff5b;
+    background-blend-mode: hard-light;  
     border: 5px double var(--primary-color);  /* Border color */
     border-radius: 30px;        /* Round the corners */
     box-shadow: var(--shadow);
     opacity: 0;
     z-index: -1;
-    animation: fadeBorder 4s infinite;  /* Border animation */
+    animation: fadeBorder 3s infinite;  /* Border animation */
 }
 
 @keyframes fadeBorder {
@@ -131,6 +102,75 @@ body {
     100% {
         background-color: var(--tertiary-color);
     }
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 18px;
+}
+
+body {
+    font-family:'Trebuchet MS', sans-serif;
+    font-size: 1rem;
+    background-image: url('images/background2.webp');
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1px 1px;
+    padding: 1px;
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-radius: 30px;
+    position: relative;
+    padding: 10px auto;
+    margin: 20px 1 0px 20px 10px;
+    max-width: 500px;
+    max-height: 100%;
+    width: 80%;
+    z-index: 1; /* Ensure it stays on top */
+}
+
+nav {
+    border-radius: 30px 30px 0px 0px;
+}
+
+section {
+    color: var(--secondary-color);
+    transition: background-color 0.5s ease;
+}
+
+section ul {
+    list-style-position: inside;
+    margin: 0%;
+    padding: 0%;
+}
+
+section ul li {
+    margin: 0%;
+    padding: 10px 0px;
+}
+
+section ul li a {
+    margin: 0%;
+    padding: 0px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
 }
 
 h1, h2 {
@@ -170,37 +210,11 @@ p {
     line-height: 2;
     font-size: 1rem;
     color: var(--secondary-color);
-    margin: 10px 0px 0px 23px;
-}
-
-header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-
-    border-radius: 30px;
-    position: relative;
-    border: 5px solid var(--primary-color);
-    padding: 4px;
-    margin: 20px 1 0px 20px 10px;
-    background-color: var(--tertiary-color);
-    max-width: 500px;
-    max-height: 100%;
-    width: 70%;
-    box-shadow: var(--shadow);
-    z-index: 1; /* Ensure it stays on top */
-}
-
-nav {
-    
-    border-radius: 30px 30px 0px 0px;
+    margin: 10px 20px 0px 20px;
 }
 
 a {
     color: var(--primary-color);
-    /* make links bold */
     font-weight: bold;
     text-decoration: none;
 }
@@ -214,35 +228,20 @@ a:visited {
 
 }
 
-a:visted:hover {
-    color: var(--primary-color);
-    text-decoration: underline;
+@media (max-width: 768px) {
+    .html {
+        font-size: 16px;
+    }
+    .fancy-border{
+        padding: 15px;
+    }
 }
 
-section {
-    color: var(--secondary-color);
-    transition: background-color 0.5s ease;
-}
-
-section ul {
-    list-style-position: inside;
-    margin: 0%;
-    padding: 0%;
-}
-
-section ul li {
-    margin: 0%;
-    padding: 10px 0px;
-}
-
-section ul li a {
-    margin: 0%;
-    padding: 0px;
-}
-
-footer {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    margin: 20px auto;
+@media (max-width: 480px) {
+    .html {
+        font-size: 14px;
+    }
+    .fancy-border{
+        padding: 10px;
+    }
 }
