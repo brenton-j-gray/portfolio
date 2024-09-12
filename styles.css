@@ -16,6 +16,7 @@
 .fancy-border {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     align-items: stretch;
     position: relative;
     border: 5px solid var(--primary-color);
