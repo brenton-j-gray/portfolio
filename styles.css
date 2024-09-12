@@ -1,3 +1,17 @@
+:root {
+    --primary-color: #607f86;
+    --secondary-color: #3f3f3f;
+    --tertiary-color: #f7f7f7ea;
+    --quaternary-color: #857e6a;
+    --pixel-font: 'Press Start 2P', cursive;
+    --shadow: 10px 10px 15px var(--secondary-color);
+}
+
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url('fonts/PressStart2P-Regular.ttf') format('truetype');
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -8,10 +22,13 @@ body {
     background-repeat: repeat;
     background-position: center;
     background-attachment: fixed;
-    margin: 0.5% 1%;
-    padding: 0px;
-
-
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1px 1px;
+    padding: 1px;
 }
 
 .fancy-border {
@@ -22,14 +39,14 @@ body {
     align-items: stretch;
     align-content: flex-start;
     position: relative;
-    border: 5px solid #7498a1;
+    border: 5px solid var(--primary-color);
     padding: 20px;
     margin: 8px auto;
-    background-color: #333333;;
+    background-color: var(--tertiary-color);
 
     max-height: 100%;
     width: 85%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+    box-shadow: var(--shadow);
     z-index: 1; /* Ensure it stays on top */
     transition: transform 0.5s ease;
 }
@@ -71,21 +88,21 @@ body {
     align-items: center;
     align-content: center;
 
-    margin: 10px;
+    margin: 0px 1px 0px 1px;
     width: auto;
-    padding: 10px;
+    padding: 1px 1px 1px 1px;
 }
 
 .section-container::before {
     content: "";
     position: absolute;
-    top: -10px;           /* Move the border slightly outside the container */
+    top: -12px;           /* Move the border slightly outside the container */
     left: -2px;  
     right: -2px;
-    bottom: -10px;  
-    border: 5px double #7498a1;  /* Border color */
+    bottom: -12px;  
+    border: 5px double var(--primary-color);  /* Border color */
     border-radius: 30px;        /* Round the corners */
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+    box-shadow: var(--shadow);
     opacity: 0;
     z-index: -1;
     animation: fadeBorder 4s infinite;  /* Border animation */
@@ -104,37 +121,38 @@ body {
 }
 
 .flash {
-    animation: flash-bg 2s ease;
+    animation: flash-bg 1s ease;
 }
 
 @keyframes flash-bg {
     0% {
-        background-color: #747474;
+        background-color: var(--primary-color);
     }
     100% {
-        background-color: #333;
+        background-color: var(--tertiary-color);
     }
 }
 
 h1, h2 {
-    font-family: "Press Start 2P", monospace;
+    font-family: var(--pixel-font);
     font-size: 2rem;
     text-align: center;
-    text-shadow: 5px 5px 4px #000000;
-    color: #7498a1;
+    text-shadow: 2px 2px 2px var(--secondary-color);
+    color: var(--primary-color);
     padding: 0px;
     margin: 2%;
 }
 
 h2 {
     font-size: 1.5rem;
-    color: #dfdccf;
+    color: var(--secondary-color);
+    text-shadow: none;
 }
 
 h3, h5, h6 {
     text-align: left;
     font-size: 1.2rem;
-    color: #FFFFFF;
+    color: var(--secondary-color);
     margin: 10px 0px 10px 23px;
 
 
@@ -143,7 +161,7 @@ h3, h5, h6 {
 h4 {
     font-size: 1rem;
     text-align:center;
-    color: #000000;
+    color: var(--secondary-color);
     margin: 5px 0px 0px 0px;
 }
 
@@ -151,7 +169,7 @@ p {
     text-align: left;
     line-height: 2;
     font-size: 1rem;
-    color: #dfdccf;
+    color: var(--secondary-color);
     margin: 10px 0px 0px 23px;
 }
 
@@ -164,14 +182,14 @@ header {
 
     border-radius: 30px;
     position: relative;
-    border: 5px solid #7498a1;
-    padding: 4%;
-    margin: 6% auto;
-    background-color: #333;
+    border: 5px solid var(--primary-color);
+    padding: 4px;
+    margin: 20px 1 0px 20px 10px;
+    background-color: var(--tertiary-color);
     max-width: 500px;
     max-height: 100%;
     width: 70%;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.7);
+    box-shadow: var(--shadow);
     z-index: 1; /* Ensure it stays on top */
 }
 
@@ -181,21 +199,28 @@ nav {
 }
 
 a {
-    color: #7498a1;
+    color: var(--primary-color);
+    /* make links bold */
+    font-weight: bold;
     text-decoration: none;
 }
 
 a:hover {
-    color: #7498a1;
+    color: var(--secondary-color);
     text-decoration: underline;
 }
 
 a:visited {
-    color: #dfdccf;
+
+}
+
+a:visted:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
 }
 
 section {
-    color: #dfdccf;
+    color: var(--secondary-color);
     transition: background-color 0.5s ease;
 }
 
