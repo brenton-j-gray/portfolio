@@ -82,3 +82,80 @@ function simulateHoverOnTouch() {
 if ('ontouchstart' in window) {
     simulateHoverOnTouch();
 }
+
+document.getElementById('contact-form').addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const status = document.getElementById('form-status');
+    const formData = new FormData(event.target);
+    
+    // Form validation logic starts here
+    const name = document.getElementById('name');
+    const email = document.getElementById('email');
+    const message = document.getElementById('message');
+
+    // Reset previous error messages
+    status.innerHTML = '';
+
+    // Validate the Name
+    if (name.value.trim() === '' || !/^[A-Za-z\s]+$/.test(name.value)) {
+        status.innerHTML = 'Please enter a valid name (letters and spaces only).';
+        name.focus();
+        return;
+    }
+
+    // Validate the Email
+    if (email.value.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        status.innerHTML = 'Please enter a valid email address.';
+        email.focus();
+        return;
+    }
+
+    // Validate the Message
+    if (message.value.trim().length < 10 || message.value.trim().length > 500) {
+        status.innerHTML = 'Message must be between 10 and 500 characters.';
+        message.focus();
+        return;
+    }
+
+    try {
+        const response = await fetch('https://formspree.io/f/mvgpnlrg', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            status.innerHTML = 'Message sent successfully!';
+            event.target.reset();
+        } else {
+            status.innerHTML = 'An error occurred while sending the message.';
+        }
+    } catch (error) {
+        status.innerHTML = 'An error occurred while sending the message.';
+        console.error('Error sending message:', error);
+    }
+});
+
+// Get the message textarea and character count display
+const messageInput = document.getElementById('message');
+const charCountDisplay = document.getElementById('char-count');
+const maxChars = 500;
+
+// Function to update the character count
+function updateCharCount() {
+    const remainingChars = maxChars - messageInput.value.length;
+    charCountDisplay.textContent = `${remainingChars} characters remaining`;
+
+    // Optional: Add visual cue when the limit is close
+    if (remainingChars < 50) {
+        charCountDisplay.style.color = 'red'; // Change text color to red if close to the limit
+    } else {
+        charCountDisplay.style.color = ''; // Reset to default color
+    }
+}
+
+// Listen for input events on the message field
+messageInput.addEventListener('input', updateCharCount);
+
