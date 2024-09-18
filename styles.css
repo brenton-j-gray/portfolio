@@ -3,12 +3,9 @@
     --secondary-color: #8a8472;
     --bright-color: #eeeeee;
     --dark-color: #2c2c2c;
-    
     --pixel-font: 'Press Start 2P', 'Lora', sans-serif;
     --shadow: 4px 4px 8px var(--dark-color);
-    
 }
-
 
 @font-face {
     font-family: 'Press Start 2P';
@@ -16,80 +13,27 @@
 }
 
 .fancy-border {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: stretch;
-    position: relative;
     border: 5px solid var(--dark-color);
-    padding: 20px;
-    margin: 10px;
-    background-color: var(--bright-color);
-    width: 90%;
     box-shadow: var(--shadow);
-    z-index: 1; /* Ensure it stays on top */
-    transition: transform 0.5s ease;
+
+    background-color: var(--bright-color);
+
 }
 
-.fancy-border:hover {
-    transform: scale(1.01);
+.skill-grid {
+    display: grid;
+    list-style-position: inside;
+    text-indent: 0px;
+    grid-template-columns: 1fr 1fr;
+    gap: 0px 0px;
 }
 
-.fancy-border.hover-active {
-    transform: scale(1.01);
+.top-section {
+    border-radius: 30px 30px 0px 0px;
 }
 
-.nav-links {
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-content: center;
-    transition:unset;
-}
-
-.contact-border {
+.bottom-section {
     border-radius: 0px 0px 30px 30px;
-}
-
-.section-container {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    margin: 10px 0px;
-    width: 90%;
-    max-width:  960px;
-    padding: 20px;
-}
-
-.section-container::before {
-    content: "";
-    position: absolute;
-    top: -0.5px;           /* Move the border slightly outside the container */
-    left: -0.5px;  
-    right: -0.5px;
-    bottom: -0.5px;
-    background-color: #ffffff31;
-    background-blend-mode: hard-light;  
-    border: 5px double var(--dark-color);  /* Border color */
-    border-radius: 30px;          /* Round the corners */
-    opacity: 0;
-    z-index: -1;
-    animation: fadeBorder 3s infinite;  /* Border animation */
-}
-
-@keyframes fadeBorder {
-    0% {
-        opacity: 0; /* Fully transparent */
-    }
-    50% {
-        opacity: 1; /* Fully visible */
-    }
-    100% {
-        opacity: 0; /* Back to fully transparent */
-    }
 }
 
 .flash {
@@ -107,72 +51,103 @@
 
 html {
     scroll-behavior: smooth;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 body {
     font-family:'Georgia', sans-serif;
     font-size: 1rem;
+    
     background-image: url('images/background2.webp');
     background-repeat: repeat;
     background-position: center;
     background-attachment: fixed;
+    
     display: flex;
     flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 1px 1px;
-    padding: 1px;
-}
-
-header {
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    justify-items: center;
     align-items: center;
     align-content: center;
-    border-radius: 30px;
-    position: relative;
-    padding: 10px auto;
-    margin: 20px 1 0px 20px 10px;
-    max-width: 500px;
-    max-height: 100%;
-    width: 80%;
-    z-index: 1; /* Ensure it stays on top */
+    margin: 2px;
+    padding: 1px 0px;
 }
 
 nav {
-    border-radius: 30px 30px 0px 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    padding: 0px;
+    margin: 0px;
+    width: 95%;
+    max-width: 800px;
+    gap: 5px;
+}
+
+nav a {
+    padding: 0px;
+    margin: 10px;
+
+}
+
+header {
+    max-width: 500px;
+    width: 95%;
+    z-index: 1; /* Ensure it stays on top */
 }
 
 section {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    padding: 0px 0px 20px 0px;
+    margin: 10px auto;
     transition: background-color 0.3s ease;
+    transition: transform 0.5s ease;
+    width: 95%;
+    max-width: 800px;
+}
+
+section:hover {
+    transform: scale(1.01);
+}
+
+section.hover-active {
+    transform: scale(1.01);
+}
+
+section h3 {
+    margin: 10px 20px 10px 20px;
+    padding: 0px;
 }
 
 section ul {
-    list-style: outside;
+    list-style: inside;
     list-style-type: square;
-    margin: 10px 0px 10px 0px;
-
+    padding: 0px 0px 0px 0px;
+    margin: 0px 20px;
 }
 
 section ul li {
-    padding: 5px 0px 5px 0px;
+    margin: 0px 0px 1rem 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+section ul li a {
+    padding: 0px 0px 0px 0px;
+    margin: 0px;
 
 }
 
 section ul li p {
-    padding: 0px;
+    padding: 0px 0px 0px 0px;
     margin: 0px;
-}
-
-footer {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 0px 20px;
-
 }
 
 h1, h2 {
@@ -196,14 +171,13 @@ h3, h5, h6 {
     text-align: left;
     font-size: 1.2rem;
     color: var(--secondary-color);
-    margin: 10px 10px 0px 10px;
+    padding: 0px 20px 0px 20px;
 }
 
 h4 {
     font-size: 1rem;
     text-align:center;
     color: var(--dark-color);
-    margin: 5px 0px 0px 0px;
 }
 
 p {
@@ -211,7 +185,8 @@ p {
     line-height: 2;
     font-size: 1rem;
     color: var(--dark-color);
-    margin: 10px 10px 15px 10px;
+    padding: 0px 20px 1rem 20px;
+    margin: 0px 0px 0px 0px;
 }
 
 a {
@@ -228,9 +203,9 @@ a:hover {
 form {
     display: flex;
     flex-direction: column;
-    margin: 20px 10px 20px 10px;
     gap: 10px;
-
+    padding: 10px 20px;
+    margin: 10px 0px;
 }
 
 form label{
@@ -239,7 +214,7 @@ form label{
 }
 
 form input, form textarea {
-    padding: 8px;
+    padding: 10px;
     border: 2px solid var(--dark-color);
     border-radius: 5px;
 }
@@ -248,8 +223,13 @@ form input {
     width: 50%;
 }
 
+form textarea {
+    width: 95%;
+}
+
 form button {
-    padding: 10px;
+    padding: 10px 30px;
+    margin: 10px auto;
     background-color: var(--primary-color);
     font-size: 1.2rem;
     color: white;
@@ -263,20 +243,23 @@ form button:hover{
     background-color: var(--secondary-color);
 }
 
+footer h4{
+    padding: 5px;
+    margin: 10px 0px 10px 0px;
+}
+
 #char-count {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--dark-color);
-    margin-top: 0px;
+    margin-top: 0px !important;
     text-align: right;
+    padding: 0px auto;
 }
 
 
 @media (max-width: 768px) {
     html {
-        font-size: 20px;
-    }
-    .fancy-border{
-
+        font-size: 18px;
     }
 }
 
@@ -284,10 +267,7 @@ form button:hover{
     html {
         font-size: 20px;
     }
-    .nav-links {
-        flex-direction:row;
-    }
-    .fancy-border{
-
+    nav {
+        grid-template-columns: 1fr 1fr;
     }
 }

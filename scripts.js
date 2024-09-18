@@ -1,4 +1,3 @@
-
 // Function to fetch repository data from GitHub
 async function fetchGitHubRepos() {
     try {
@@ -35,6 +34,7 @@ async function fetchGitHubRepos() {
         console.error('Error fetching GitHub repositories:', error);
     }
 }
+
 // Call the function to fetch the repositories
 fetchGitHubRepos();
 
@@ -148,7 +148,7 @@ function updateCharCount() {
     const remainingChars = maxChars - messageInput.value.length;
     charCountDisplay.textContent = `${remainingChars} characters remaining`;
 
-    // Optional: Add visual cue when the limit is close
+    // Add visual cue when the limit is close
     if (remainingChars < 50) {
         charCountDisplay.style.color = 'red'; // Change text color to red if close to the limit
     } else {
