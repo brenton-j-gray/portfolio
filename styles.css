@@ -1,7 +1,8 @@
 :root {
-    --primary-color: #66868d;
-    --secondary-color: #8a8472;
-    --bright-color: #eeeeee;
+    --primary-color: #aa5a5a;
+    --secondary-color: #9b7128;
+    --tertiary-color: #d4b100;
+    --bright-color: #e0e0e0;
     --dark-color: #2c2c2c;
     --pixel-font: 'Press Start 2P', 'Lora', sans-serif;
     --shadow: 4px 4px 8px var(--dark-color);
@@ -20,12 +21,21 @@
 
 }
 
-.skill-grid {
+.itemList {
     display: grid;
+    list-style-type: circle;
     list-style-position: inside;
     text-indent: 0px;
     grid-template-columns: 1fr 1fr;
     gap: 0px 0px;
+}
+
+.projectList {
+    display: grid;
+    list-style-type: none;
+    list-style-position: inside;
+    grid-template-columns: 1fr;
+    gap: 20px 0px;
 }
 
 .top-section {
@@ -44,25 +54,27 @@
     0% {
         background-color: var(--primary-color);
     }
+
     100% {
         background-color: var(--bright-color);
     }
 }
 
+
+
 html {
     scroll-behavior: smooth;
+    font-family: sans-serif;
     font-size: 16px;
 }
 
 body {
-    font-family:'Georgia', sans-serif;
     font-size: 1rem;
-    
-    background-image: url('images/background2.webp');
-    background-repeat: repeat;
-    background-position: center;
-    background-attachment: fixed;
-    
+
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
+    background-size: 300% 300%;
+    animation: gradientAnimation 12s ease infinite;
+
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -73,6 +85,12 @@ body {
     margin: 2px;
     padding: 1px 0px;
 }
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
 nav {
     display: grid;
@@ -91,13 +109,13 @@ nav {
 nav a {
     padding: 0px;
     margin: 10px;
-
+    color: var(--dark-color);
 }
 
 header {
     max-width: 500px;
     width: 95%;
-    z-index: 1; /* Ensure it stays on top */
+    z-index: 1;
 }
 
 section {
@@ -123,34 +141,34 @@ section.hover-active {
 }
 
 section h3 {
-    margin: 10px 20px 10px 20px;
+    margin: 20px;
     padding: 0px;
 }
 
 section ul {
     list-style: inside;
     list-style-type: square;
-    padding: 0px 0px 0px 0px;
+    padding: 0px 0px 10px 0px;
     margin: 0px 20px;
 }
 
 section ul li {
-    margin: 0px 0px 1rem 0px;
-    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
 }
 
 section ul li a {
-    padding: 0px 0px 0px 0px;
+    padding: 0px;
     margin: 0px;
-
 }
 
 section ul li p {
-    padding: 0px 0px 0px 0px;
+    padding: 0px;
     margin: 0px;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: var(--pixel-font);
     font-weight: bolder;
     font-size: 2rem;
@@ -162,12 +180,14 @@ h1, h2 {
 }
 
 h2 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--dark-color);
     text-shadow: none;
 }
 
-h3, h5, h6 {
+h3,
+h5,
+h6 {
     text-align: left;
     font-size: 1.2rem;
     color: var(--secondary-color);
@@ -176,7 +196,7 @@ h3, h5, h6 {
 
 h4 {
     font-size: 1rem;
-    text-align:center;
+    text-align: center;
     color: var(--dark-color);
 }
 
@@ -190,7 +210,7 @@ p {
 }
 
 a {
-    color: var(--primary-color);
+    color: var(--dark-color);
     font-weight: bold;
     text-decoration: none;
 }
@@ -208,12 +228,13 @@ form {
     margin: 10px 0px;
 }
 
-form label{
+form label {
     font-weight: bold;
     font-size: 1.0rem;
 }
 
-form input, form textarea {
+form input,
+form textarea {
     padding: 10px;
     border: 2px solid var(--dark-color);
     border-radius: 5px;
@@ -239,13 +260,14 @@ form button {
     border-radius: 5px;
 }
 
-form button:hover{
+form button:hover {
     background-color: var(--secondary-color);
 }
 
-footer h4{
+footer h4 {
     padding: 5px;
     margin: 10px 0px 10px 0px;
+    color: var(--bright-color);
 }
 
 #char-count {
@@ -256,18 +278,39 @@ footer h4{
     padding: 0px auto;
 }
 
-
-@media (max-width: 768px) {
+@media (max-width: 700px) {
     html {
-        font-size: 18px;
+        font-size: 22px;
     }
-}
 
-@media (max-width: 480px) {
-    html {
-        font-size: 20px;
-    }
     nav {
+        font-size: 1.3rem;
         grid-template-columns: 1fr 1fr;
+        grid-auto-flow: row;
+    }
+
+    .itemList {
+        list-style-type: none;
+        text-align: center;
+        gap: 20px 20px;
+
+    }
+
+    #github-projects.projectList a {
+        display: block;
+        padding: 0px;
+        margin: 10px 0px 10px 0px;
+        /* align a tags in the center */
+        justify-self: center;
+
+    }
+
+    h3 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
     }
 }

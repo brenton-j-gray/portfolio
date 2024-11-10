@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Brenton Gray's software engineering portfolio showcasing projects in C++, JavaScript, and web development. View my latest work and contact me for opportunities.">
-    <meta name="keywords" content="Brenton Gray, Software Engineer, C++, JavaScript, Portfolio, Web Developer, Frontend Developer, Backend Developer">
-    <meta name="author" content="Brenton Gray">   
+    <meta name="description"
+        content="Brenton Gray's software engineering portfolio showcasing projects in C++, JavaScript, and web development. View my latest work and contact me for opportunities.">
+    <meta name="keywords"
+        content="Brenton Gray, Software Engineer, C++, JavaScript, Portfolio, Web Developer, Frontend Developer, Backend Developer">
+    <meta name="author" content="Brenton Gray">
     <meta property="og:title" content="Brenton Gray | Software Engineer Portfolio">
-    <meta property="og:description" content="View Brenton Gray's portfolio, showcasing projects in web development, C++, and JavaScript.">
+    <meta property="og:description"
+        content="View Brenton Gray's portfolio, showcasing projects in web development, C++, and JavaScript.">
     <meta property="og:url" content="https://gray-skull.github.io/portfolio/">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="styles.css">
     <title>Brenton Gray | Software Engineer Portfolio</title>
 </head>
+
 <body>
     <header id="header">
         <h1>Brenton Gray</h1>
@@ -23,7 +28,7 @@
     <nav class="fancy-border top-section">
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
-        <a href="#interests">Interests</a>   
+        <a href="#interests">Interests</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
     </nav>
@@ -31,25 +36,28 @@
 
     <section class="fancy-border" id="projects">
         <h3>Projects (From GitHub)</h3>
-        <ul id="github-projects"> 
+        <ul class="projectList" id="github-projects">
             <!-- JavaScript will populate this list -->
         </ul>
     </section>
 
-    <section class ="fancy-border" id="skills">
+    <section class="fancy-border" id="skills">
         <h3>Technical Skills</h3>
-        <ul class="skill-grid">
+        <ul class="itemList">
             <li>C++</li>
             <li>Java</li>
             <li>JavaScript</li>
+            <li>Node.js</li>
+            <li>Express.js</li>
             <li>HTML</li>
             <li>CSS</li>
             <li>SQL</li>
+            <li>MySQL</li>
+            <li>MongoDB</li>
             <li>Git</li>
-            <li>Object-Oriented Programming</li>
         </ul>
         <h3>Soft Skills</h3>
-        <ul class="skill-grid">
+        <ul class="itemList">
             <li>Adaptability</li>
             <li>Collaboration</li>
             <li>Creativity</li>
@@ -60,12 +68,10 @@
             <li>Organization</li>
             <li>Patience</li>
             <li>Time Management</li>
-    </section>
-
-    <section class="fancy-border" id="interests">
+        </ul>
         <h3>Current Interests</h3>
-        <ul class="skill-grid">
-            <li>JavaScript, HTML, CSS</li>
+        <ul class="itemList">
+            <li>JavaScript, HTML, and CSS</li>
             <li>Designing and Playing Video games</li>
             <li>Learning New Technologies</li>
             <li>Writing & Making Music</li>
@@ -73,34 +79,34 @@
             <li>Travel!</li>
         </ul>
     </section>
-    
+
     <section class="fancy-border" id="about">
         <h3>About Me</h3>
         <p>
-            I&apos;m Brenton Gray, a highly skilled software engineer with 
-            20 years of technical leadership experience from my time in 
-            the United States Marine Corps. My passion for technology 
-            and problem-solving has driven me to specialize in software 
+            I&apos;m Brenton Gray, a highly skilled software engineer with
+            20 years of technical leadership experience from my time in
+            the United States Marine Corps. My passion for technology
+            and problem-solving has driven me to specialize in software
             development, particularly in C++ and Java.
         </p>
         <p>
-            Over the past two years, I have honed my skills in developing 
-            high-quality software solutions, managing complex projects, 
-            and leading teams to success. As I transition from the military 
-            to the tech industry, I bring a strong background in leadership, 
-            process improvement, and a proven ability to quickly master 
-            new technologies. I thrive in environments that require 
-            collaboration, communication, and innovative thinking to 
-            solve challenging problems. 
+            Over the past two years, I have honed my skills in developing
+            high-quality software solutions, managing complex projects,
+            and leading teams to success. As I transition from the military
+            to the tech industry, I bring a strong background in leadership,
+            process improvement, and a proven ability to quickly master
+            new technologies. I thrive in environments that require
+            collaboration, communication, and innovative thinking to
+            solve challenging problems.
         </p>
         <p>
-            Currently, I hold an active Secret Security Clearance and 
-            am pursuing a Bachelor of Science in Computer Science from 
-            National University, with a focus on object-oriented programming, 
-            database design, and web app development. Whether working on solo 
-            projects or leading a team, I am driven by my desire to create 
-            meaningful, efficient solutions. I&apos;m excited to apply my 
-            technical and leadership expertise to new challenges in the 
+            Currently, I hold an active Secret Security Clearance and
+            am pursuing a Bachelor of Science in Computer Science from
+            National University, with a focus on object-oriented programming,
+            database design, and web app development. Whether working on solo
+            projects or leading a team, I am driven by my desire to create
+            meaningful, efficient solutions. I&apos;m excited to apply my
+            technical and leadership expertise to new challenges in the
             software engineering field.
         </p>
     </section>
@@ -110,7 +116,8 @@
         <!-- Formspree form for contact submission */ -->
         <form id="contact-form" method="POST" action="https://formspree.io/f/mvgpnlrg">
             <label for="name">Your Name:</label>
-            <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z\s]+" title="Name should only contain letters and spaces.">
+            <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z\s]+"
+                title="Name should only contain letters and spaces.">
 
             <label for="email">Your Email:</label>
             <input type="email" id="email" name="email" required>
@@ -131,6 +138,6 @@
     </footer>
 
     <script src="scripts.js"></script>
-
 </body>
+
 </html>

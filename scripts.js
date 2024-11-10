@@ -1,4 +1,9 @@
 // Function to fetch repository data from GitHub
+// DOMContentLoaded event ensures the script runs after the HTML has been parsed
+document.addEventListener('DOMContentLoaded', () => {
+    fetchGitHubRepos();
+});
+
 async function fetchGitHubRepos() {
     try {
         const response = await fetch(`https://api.github.com/users/gray-skull/repos`);
@@ -34,9 +39,6 @@ async function fetchGitHubRepos() {
         console.error('Error fetching GitHub repositories:', error);
     }
 }
-
-// Call the function to fetch the repositories
-fetchGitHubRepos();
 
 // function to move the screen after a nav link is clicked
 // also adds a flash effect to the target section
