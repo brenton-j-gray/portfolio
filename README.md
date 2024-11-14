@@ -26,6 +26,6 @@ This is a personal portfolio website showcasing my projects and skills. It dynam
 - GitHub Pages will automatically host your website.
 
 ## How to Use
-1. Open index.php in a web browser.
+1. Open index.html in a web browser.
 2. Customize the content or API calls to reflect your GitHub profile or specific projects.
 3. ~~Ensure PHP is enabled if using the visitor counter feature.~~

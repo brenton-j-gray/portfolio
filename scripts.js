@@ -1,9 +1,10 @@
-// Function to fetch repository data from GitHub
+
 // DOMContentLoaded event ensures the script runs after the HTML has been parsed
 document.addEventListener('DOMContentLoaded', () => {
     fetchGitHubRepos();
 });
 
+// Function to fetch repository data from GitHub
 async function fetchGitHubRepos() {
     try {
         const response = await fetch(`https://api.github.com/users/gray-skull/repos`);
