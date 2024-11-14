@@ -71,7 +71,7 @@ html {
 body {
     font-size: 1rem;
 
-    background: linear-gradient(90deg, var(--primary-color), var(--tertiary-color));
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     background-size: 300% 300%;
     animation: gradientAnimation 10s ease infinite;
 
@@ -174,7 +174,7 @@ h2 {
     font-size: 2rem;
     text-align: center;
     text-shadow: var(--shadow);
-    color: var(--secondary-color);
+    color: var(--bright-color);
     padding: 0px;
     margin: 2%;
 }
