@@ -116,6 +116,21 @@ header {
     max-width: 500px;
     width: 95%;
     z-index: 1;
+    margin: 30px auto;
+}
+
+header h2 {
+    padding: 0px;
+    margin: 0px;
+}
+
+header p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--bright-color);
+    padding: 0px;
+    margin: 0px;
+    line-height: 1.2;
 }
 
 section {
