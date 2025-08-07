@@ -7,7 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Function to fetch repository data from GitHub
 async function fetchGitHubRepos() {
     try {
-        const response = await fetch(`https://api.github.com/users/gray-skull/repos`);
+        const response = await fetch(`https://api.github.com/users/brenton-j-gray/repos`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const repos = await response.json();
 
         // Get the list element where we will display the projects
@@ -15,6 +20,14 @@ async function fetchGitHubRepos() {
 
         // filter out forked repos
         const myRepos = repos.filter(repo => !repo.fork);
+
+        if (myRepos.length === 0) {
+            // Display a message if no repositories are found
+            const listItem = document.createElement('li');
+            listItem.textContent = 'No repositories found.';
+            projectList.appendChild(listItem);
+            return;
+        }
 
         myRepos.forEach(repo => {
             // Create a list item for each repository
@@ -24,10 +37,11 @@ async function fetchGitHubRepos() {
             const repoLink = document.createElement('a');
             repoLink.href = repo.html_url;
             repoLink.textContent = repo.name;
+            repoLink.target = '_blank'; // Open in new tab
 
             // Add the repository description
             const description = document.createElement('p');
-            description.textContent = repo.description;
+            description.textContent = repo.description || 'No description available';
 
             // Append the link and description to the list item
             listItem.appendChild(repoLink);
@@ -36,8 +50,23 @@ async function fetchGitHubRepos() {
             // Append the list item to the project list
             projectList.appendChild(listItem);
         });
+        
+        console.log(`Successfully loaded ${myRepos.length} GitHub repositories`);
+        
     } catch (error) {
         console.error('Error fetching GitHub repositories:', error);
+        
+        // Display error message to user
+        const projectList = document.getElementById('github-projects');
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <p style="color: #666; font-style: italic;">
+                Unable to load GitHub projects at this time. 
+                <br>This may be due to network restrictions or API rate limits.
+                <br>Please visit <a href="https://github.com/brenton-j-gray" target="_blank">my GitHub profile</a> to view my repositories.
+            </p>
+        `;
+        projectList.appendChild(listItem);
     }
 }
 
