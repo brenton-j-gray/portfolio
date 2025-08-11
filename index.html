@@ -29,64 +29,280 @@
         <p>Active Secret Clearance</p>
     </header>
 
-    <nav class="fancy-border top-section">
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#Interests">Interests</a>
-        <a href="#about">About</a>
-        <a href="#cv">CV/Resume</a>
-        <a href="#contact">Contact</a>
+    <nav class="top-section" role="tablist" aria-label="Primary">
+        <a id="projects-tab" class="tab-link" role="tab" aria-controls="projects" aria-selected="true" href="#projects">Projects</a>
+        <a id="skills-tab" class="tab-link" role="tab" aria-controls="skills" aria-selected="false" href="#skills">Skills</a>
+        <a id="interests-tab" class="tab-link" role="tab" aria-controls="interests" aria-selected="false" href="#interests">Interests</a>
+        <a id="about-tab" class="tab-link" role="tab" aria-controls="about" aria-selected="false" href="#about">About</a>
+        <a id="contact-tab" class="tab-link" role="tab" aria-controls="contact" aria-selected="false" href="#contact">Contact</a>
+        <a id="secret-tab" class="tab-link hidden" role="tab" aria-controls="secret" aria-selected="false" aria-hidden="true" tabindex="-1" href="#secret">Secret</a>
     </nav>
 
 
-    <section class="fancy-border" id="projects">
+    <section class="tab-content active" id="projects" role="tabpanel" aria-labelledby="projects-tab">
         <h3>Projects (From GitHub)</h3>
         <ul class="projectList" id="github-projects">
             <!-- JavaScript will populate this list -->
         </ul>
     </section>
 
-    <section class="fancy-border" id="skills">
-        <h3>Technical Skills</h3>
-        <ul class="itemList">
-            <li>C++</li>
-            <li>Java</li>
-            <li>JavaScript</li>
-            <li>Python</li>
-            <li>Node.js</li>
-            <li>Express.js</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>SQL</li>
-            <li>MySQL</li>
-            <li>MongoDB</li>
-            <li>Git</li>
-        </ul>
-        <h3>Soft Skills</h3>
-        <ul class="itemList">
-            <li>Adaptability</li>
-            <li>Collaboration</li>
-            <li>Creativity</li>
-            <li>Empathy</li>
-            <li>Flexibility</li>
-            <li>Innovation</li>
-            <li>Integrity</li>
-            <li>Organization</li>
-            <li>Patience</li>
-            <li>Time Management</li>
-        </ul>
-        <h3 id="Interests">Current Interests</h3>
-        <ul class="itemList">
-            <li>JavaScript, HTML, and CSS</li>
-            <li>Designing and Playing Video games</li>
-            <li>Learning New Technologies</li>
-            <li>Writing & Making Music</li>
-            <li>Creative Writing</li>
-            <li>Travel!</li>
+    <section class="tab-content" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+        <h3>Skills</h3>
+        <div class="skills-filters" role="toolbar" aria-label="Skill filters">
+            <button class="chip active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="chip" type="button" data-filter="language" aria-pressed="false">Languages</button>
+            <button class="chip" type="button" data-filter="frontend" aria-pressed="false">Frontend</button>
+            <button class="chip" type="button" data-filter="backend" aria-pressed="false">Backend</button>
+            <button class="chip" type="button" data-filter="database" aria-pressed="false">Databases</button>
+            <button class="chip" type="button" data-filter="tools" aria-pressed="false">Tools</button>
+            <button class="chip" type="button" data-filter="soft" aria-pressed="false">Soft</button>
+        </div>
+
+        <ul class="skills-list" id="skills-list">
+            <!-- Technical Skills -->
+            <li class="skill-item" data-tags="language backend">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="cpp">C++</span>
+                    <span class="skill-name">C++</span>
+                    <span class="skill-meta">3 yrs</span>
+                </div>
+                <div class="skill-bar" aria-label="C++ proficiency 70%">
+                    <div class="skill-fill" data-level="70"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="language backend">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="java">Jv</span>
+                    <span class="skill-name">Java</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="Java proficiency 55%">
+                    <div class="skill-fill" data-level="55"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="language frontend backend">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="js">JS</span>
+                    <span class="skill-name">JavaScript</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="JavaScript proficiency 65%">
+                    <div class="skill-fill" data-level="65"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="language backend tools">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="python">Py</span>
+                    <span class="skill-name">Python</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="Python proficiency 55%">
+                    <div class="skill-fill" data-level="55"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="backend tools">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="node">Nd</span>
+                    <span class="skill-name">Node.js</span>
+                    <span class="skill-meta">Projects</span>
+                </div>
+                <div class="skill-bar" aria-label="Node.js proficiency 55%">
+                    <div class="skill-fill" data-level="55"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="backend tools">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="express">Ex</span>
+                    <span class="skill-name">Express.js</span>
+                    <span class="skill-meta">Projects</span>
+                </div>
+                <div class="skill-bar" aria-label="Express.js proficiency 50%">
+                    <div class="skill-fill" data-level="50"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="frontend">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="html">H</span>
+                    <span class="skill-name">HTML</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="HTML proficiency 75%">
+                    <div class="skill-fill" data-level="75"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="frontend">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="css">C</span>
+                    <span class="skill-name">CSS</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="CSS proficiency 70%">
+                    <div class="skill-fill" data-level="70"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="database">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="sql">SQ</span>
+                    <span class="skill-name">SQL</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="SQL proficiency 60%">
+                    <div class="skill-fill" data-level="60"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="database">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="mysql">My</span>
+                    <span class="skill-name">MySQL</span>
+                    <span class="skill-meta">Academic + projects</span>
+                </div>
+                <div class="skill-bar" aria-label="MySQL proficiency 55%">
+                    <div class="skill-fill" data-level="55"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="database">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="mongodb">Mg</span>
+                    <span class="skill-name">MongoDB</span>
+                    <span class="skill-meta">Projects</span>
+                </div>
+                <div class="skill-bar" aria-label="MongoDB proficiency 50%">
+                    <div class="skill-fill" data-level="50"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="tools">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="git">Gt</span>
+                    <span class="skill-name">Git</span>
+                    <span class="skill-meta">Projects</span>
+                </div>
+                <div class="skill-bar" aria-label="Git proficiency 65%">
+                    <div class="skill-fill" data-level="65"></div>
+                </div>
+            </li>
+
+            <!-- Soft Skills -->
+            <li class="skill-item" data-tags="soft">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="collaboration">Co</span>
+                    <span class="skill-name">Collaboration</span>
+                    <span class="skill-meta">Strong</span>
+                </div>
+                <div class="skill-bar" aria-label="Collaboration 85%">
+                    <div class="skill-fill" data-level="85"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="soft">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="problem-solving">Ps</span>
+                    <span class="skill-name">Problem Solving</span>
+                    <span class="skill-meta">Strong</span>
+                </div>
+                <div class="skill-bar" aria-label="Problem Solving 85%">
+                    <div class="skill-fill" data-level="85"></div>
+                </div>
+            </li>
+
+            <li class="skill-item" data-tags="soft">
+                <div class="skill-row">
+                    <span class="skill-icon" aria-hidden="true" data-skill="adaptability">Ad</span>
+                    <span class="skill-name">Adaptability</span>
+                    <span class="skill-meta">Proficient</span>
+                </div>
+                <div class="skill-bar" aria-label="Adaptability 75%">
+                    <div class="skill-fill" data-level="75"></div>
+                </div>
+            </li>
         </ul>
     </section>
 
-    <section class="fancy-border" id="about">
+    <section class="tab-content" id="interests" role="tabpanel" aria-labelledby="interests-tab">
+        <h3>Current Interests</h3>
+        <div id="interests-carousel" class="carousel" role="region" aria-roledescription="carousel" aria-label="Interests carousel" tabindex="0">
+            <div class="carousel-viewport">
+                <ul class="carousel-track">
+                    <li class="carousel-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 6">
+                        <div class="interest-card">
+                            <div class="interest-icon" aria-hidden="true">🛠️</div>
+                            <div class="interest-content">
+                                <h4 class="interest-title">Frontend Craft</h4>
+                                <p class="interest-text">JavaScript, HTML, CSS — building playful, fast UIs.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 6">
+                        <div class="interest-card">
+                            <div class="interest-icon" aria-hidden="true">🎮</div>
+                            <div class="interest-content">
+                                <h4 class="interest-title">Games & Design</h4>
+                                <p class="interest-text">Designing and playing games; systems, loops, and juice.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 6">
+                        <div class="interest-card">
+                            <div class="interest-icon" aria-hidden="true">📚</div>
+                            <div class="interest-content">
+                                <h4 class="interest-title">Always Learning</h4>
+                                <p class="interest-text">New tech, patterns, and neat tricks every week.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide" role="group" aria-roledescription="slide" aria-label="4 of 6">
+                        <div class="interest-card">
+                            <div class="interest-icon" aria-hidden="true">🎵</div>
+                            <div class="interest-content">
+                                <h4 class="interest-title">Writing & Music</h4>
+                                <p class="interest-text">Creative writing and making music in spare cycles.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide" role="group" aria-roledescription="slide" aria-label="5 of 6">
+                        <div class="interest-card">
+                            <div class="interest-icon" aria-hidden="true">✍️</div>
+                            <div class="interest-content">
+                                <h4 class="interest-title">Story & Narrative</h4>
+                                <p class="interest-text">Short stories, game lore, and world-building.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="carousel-slide" role="group" aria-roledescription="slide" aria-label="6 of 6">
+                        <div class="interest-card">
+                            <div class="interest-icon" aria-hidden="true">✈️</div>
+                            <div class="interest-content">
+                                <h4 class="interest-title">Travel</h4>
+                                <p class="interest-text">Exploring new places with family — collecting memories.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <button class="carousel-btn prev" type="button" aria-label="Previous slide">‹</button>
+            <button class="carousel-btn next" type="button" aria-label="Next slide">›</button>
+            <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
+                <button class="dot is-active" role="tab" aria-selected="true" aria-label="Go to slide 1"></button>
+                <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 2"></button>
+                <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 3"></button>
+                <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 4"></button>
+                <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 5"></button>
+                <button class="dot" role="tab" aria-selected="false" aria-label="Go to slide 6"></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tab-content" id="about" role="tabpanel" aria-labelledby="about-tab">
         <h3>About Me</h3>
         <p>
             I'm a transitioning U.S. Marine with over 19 years of experience as a technical leader, and I've got a knack for project management, problem-solving, and cross-team collaboration. I'm drawn to innovation and novel solutions, and have a lifelong learning and growth mindset. With a solid knowledge base in Computer Science, a unique military background, and a lifelong love for programming, I'm eager to channel my technical skills and experience into a career in Software Engineering.
@@ -99,21 +315,7 @@
         </p>
     </section>
 
-    <section class="fancy-border" id="cv">
-        <h3>CV/Resume</h3>
-        <p>
-            Download my complete curriculum vitae to view my detailed education, experience, and qualifications. 
-            The CV provides a comprehensive overview of my technical skills, professional background, and achievements.
-        </p>
-        <div class="cv-download">
-            <a href="BrentonGray_Resume.pdf" download="BrentonGray_Resume.pdf" class="cv-download-btn">
-                📄 Download CV (PDF)
-            </a>
-            <p class="cv-note">Last updated: August 2025</p>
-        </div>
-    </section>
-
-    <section class="fancy-border bottom-section" id="contact">
+    <section class="bottom-section tab-content" id="contact" role="tabpanel" aria-labelledby="contact-tab">
         <h3>Contact Me</h3>
         <!-- Formspree form for contact submission */ -->
         <form id="contact-form" method="POST" action="https://formspree.io/f/mvgpnlrg">
@@ -134,10 +336,29 @@
         <p id="form-status"></p>
     </section>
 
+    <!-- Secret Level (unlocked via Konami code) -->
+    <section class="tab-content hidden" id="secret" role="tabpanel" aria-labelledby="secret-tab" aria-hidden="true">
+        <h3>Secret Level Unlocked!</h3>
+        <p>Nice moves. You found the Konami Code. Welcome to the secret level.</p>
+        <p>Here’s a fun extra: check out a hidden case study and a few experimental ideas I’m tinkering with.</p>
+        <ul class="itemList">
+            <li>Case study: Optimizing API calls and caching for 10x faster loads</li>
+            <li>Experiment: Procedural pixel art generator</li>
+            <li>Mini-challenge: How would you ship this as a PWA?</li>
+        </ul>
+    </section>
+
     <footer>
         <h4>&copy; 2024 Brenton Gray</h4>
         <h4>Designed and implemented in HTML, CSS, and JavaScript</h4>
     </footer>
+
+    <!-- Recruiter CTA Bar -->
+    <div class="cta-bar" role="complementary" aria-label="Recruiter quick actions">
+        <button id="cta-copy-email" class="cta-btn" type="button">Copy Email</button>
+        <a id="cta-download-resume" class="cta-btn" href="BrentonGray_Resume.pdf" download>Download Resume</a>
+        <a id="cta-book-call" class="cta-btn" href="#" target="_blank" rel="noopener">Book a Call</a>
+    </div>
 
     <script src="scripts.js"></script>
 </body>
