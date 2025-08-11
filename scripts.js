@@ -88,6 +88,8 @@ function initTabs() {
     function onTabActivated(id) {
         if (id === 'skills') {
             animateSkillBars();
+        } else if (id === 'about') {
+            initWhoamiTyper();
         }
     }
 
@@ -159,6 +161,114 @@ function animateSkillBars() {
         // Use requestAnimationFrame to ensure CSS transition kicks in
         requestAnimationFrame(() => { fill.style.width = level + '%'; });
     });
+}
+
+// Typewriter effect for About -> terminal whoami
+function initWhoamiTyper() {
+    const body = document.querySelector('#about .terminal-body');
+    if (!body || body.dataset.typed === 'true') return;
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) { body.dataset.typed = 'true'; return; }
+
+    // Ensure there is a single caret we can move
+    let caret = body.querySelector('.caret');
+    if (!caret) {
+        caret = document.createElement('span');
+        caret.className = 'caret';
+        body.appendChild(caret);
+    }
+
+    const lines = Array.from(body.querySelectorAll('.term-line'));
+
+    // Identify a trailing empty prompt line (command="_") if present
+    let trailingLine = null, trailingPrompt = null, trailingCmd = null;
+    for (const line of lines) {
+        const cmdSpan = line.querySelector('.command');
+        if (cmdSpan && cmdSpan.textContent.trim() === '_') {
+            trailingLine = line;
+            trailingPrompt = line.querySelector('.prompt');
+            trailingCmd = cmdSpan;
+            break;
+        }
+    }
+
+    // Build typing sequence (exclude trailing prompt line)
+    const sequence = [];
+    lines.forEach(line => {
+        if (line === trailingLine) return; // skip trailing
+        const isOutput = line.classList.contains('output');
+        const cmd = line.querySelector('.command');
+        if (cmd && !isOutput) {
+            sequence.push({ el: cmd, line, text: cmd.textContent, kind: 'cmd' });
+        } else if (isOutput) {
+            sequence.push({ el: line, line, text: line.textContent, kind: 'out' });
+        }
+    });
+
+    // Clear visible prompts initially so we don't show a stack of '$'
+    const prompts = body.querySelectorAll('.term-line .prompt');
+    prompts.forEach(p => { p.textContent = ''; });
+
+    // Clear text before typing; also clear any trailing underscore command
+    sequence.forEach(item => { item.el.textContent = ''; });
+    if (trailingCmd) trailingCmd.textContent = '';
+
+    const charDelay = 28; // ms per character
+    const lineDelay = 150; // default pause between lines
+    const promptToOutputDelay = 320; // extra pause between a command and its output
+    const getPreInputDelay = () => Math.round(500 + Math.random() * 1500); // 0.5s - 2s thinking delay
+
+    function placeCaret(el) {
+        // Move caret to the active element so it appears at the typing position
+        el.appendChild(caret);
+    }
+
+    function typeText(el, text, afterDelay, onDone, moveCaret) {
+        let i = 0;
+        if (moveCaret) placeCaret(el);
+        (function step(){
+            if (i <= text.length) {
+                el.textContent = text.slice(0, i);
+                if (moveCaret) placeCaret(el);
+                i++;
+                setTimeout(step, charDelay);
+            } else {
+                onDone && setTimeout(onDone, afterDelay);
+            }
+        })();
+    }
+
+    let idx = 0;
+    (function next(){
+        if (idx >= sequence.length) {
+            // End: move caret to the final empty prompt line
+            if (trailingLine && trailingPrompt && trailingCmd) {
+                trailingPrompt.textContent = '$';
+                trailingCmd.textContent = '';
+                placeCaret(trailingCmd);
+            }
+            body.dataset.typed = 'true';
+            return;
+        }
+
+        const current = sequence[idx++];
+        const nextItem = sequence[idx];
+        const afterDelay = (current.kind === 'cmd' && nextItem && nextItem.kind === 'out') ? promptToOutputDelay : lineDelay;
+        const moveCaret = current.kind === 'cmd';
+
+        if (current.kind === 'cmd') {
+            // Show prompt only when input starts, after a brief, randomized thinking delay
+            setTimeout(() => {
+                const linePrompt = current.line.querySelector('.prompt');
+                if (linePrompt) linePrompt.textContent = '$';
+                typeText(current.el, current.text, afterDelay, next, moveCaret);
+            }, getPreInputDelay());
+        } else {
+            // Outputs type without moving the caret
+            typeText(current.el, current.text, afterDelay, next, false);
+        }
+    })();
 }
 
 function initSkillFilters() {

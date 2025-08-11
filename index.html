@@ -313,6 +313,37 @@
         <p>
             I'm excited to bring my laid-back attitude, good humor, and technical prowess to the tech world. I'm ready to create some amazing things, solve meaningful problems, and have a great time doing it!
         </p>
+
+        <!-- Retro terminal whoami -->
+        <div class="terminal" role="group" aria-label="whoami terminal snapshot">
+            <div class="terminal-header" aria-hidden="true">
+                <span class="term-dot term-red"></span>
+                <span class="term-dot term-yellow"></span>
+                <span class="term-dot term-green"></span>
+                <span class="terminal-title">portfolio — bash</span>
+            </div>
+            <div class="terminal-body" aria-live="polite">
+                <div class="term-line"><span class="prompt">$</span> <span class="command">whoami</span></div>
+                <div class="term-line output">brenton-j-gray</div>
+
+                <div class="term-line"><span class="prompt">$</span> <span class="command">role</span></div>
+                <div class="term-line output">Software Engineer</div>
+
+                <div class="term-line"><span class="prompt">$</span> <span class="command">status</span></div>
+                <div class="term-line output">U.S. Marine (transitioning) · Active Secret Clearance</div>
+
+                <div class="term-line"><span class="prompt">$</span> <span class="command">stack</span></div>
+                <div class="term-line output">C++, JavaScript, HTML, CSS</div>
+
+                <div class="term-line"><span class="prompt">$</span> <span class="command">interests</span></div>
+                <div class="term-line output">games, music, writing, travel</div>
+
+                <div class="term-line"><span class="prompt">$</span> <span class="command">hint</span></div>
+                <div class="term-line output">psst… try the Konami code: ↑ ↑ ↓ ↓ ← → ← → b a — it unlocks something fun.</div>
+
+                <div class="term-line"><span class="prompt">$</span> <span class="command">_</span><span class="caret" aria-hidden="true"></span></div>
+            </div>
+        </div>
     </section>
 
     <section class="bottom-section tab-content" id="contact" role="tabpanel" aria-labelledby="contact-tab">
@@ -339,13 +370,32 @@
     <!-- Secret Level (unlocked via Konami code) -->
     <section class="tab-content hidden" id="secret" role="tabpanel" aria-labelledby="secret-tab" aria-hidden="true">
         <h3>Secret Level Unlocked!</h3>
+        <figure class="secret-figure" style="margin: 8px auto 12px; text-align:center;">
+            <img src="pixel.png" alt="Retro pixel art badge" style="max-width:160px; width:100%; height:auto; image-rendering: pixelated; border: var(--border-3); border-radius: var(--radius-12); box-shadow: var(--shadow-elev-16);">
+            <figcaption style="color:#9af7e6; font-size:0.85rem; margin-top:6px;">You found the hidden room.</figcaption>
+        </figure>
+
         <p>Nice moves. You found the Konami Code. Welcome to the secret level.</p>
-        <p>Here’s a fun extra: check out a hidden case study and a few experimental ideas I’m tinkering with.</p>
+        <p>Here’s a fun extra: a deeper peek at ideas and experiments I’m tinkering with.</p>
+
         <ul class="itemList">
             <li>Case study: Optimizing API calls and caching for 10x faster loads</li>
             <li>Experiment: Procedural pixel art generator</li>
             <li>Mini-challenge: How would you ship this as a PWA?</li>
         </ul>
+
+        <details style="margin-top:10px;">
+            <summary><strong>Case study details</strong>: API caching + request coalescing</summary>
+            <p style="margin:6px 0 0;">Use a thin cache over fetch, memoize inflight requests, and back off on errors. Preload critical data and hydrate UI incrementally.</p>
+        </details>
+        <details>
+            <summary><strong>Procedural pixel art</strong>: palettes + noise</summary>
+            <p style="margin:6px 0 0;">Start with seeded noise, quantize to a limited palette, add outlines and dither. Export spritesheets or SVG paths.</p>
+        </details>
+        <details>
+            <summary><strong>PWA hint</strong>: installable + offline</summary>
+            <p style="margin:6px 0 0;">Add a manifest.json, service worker with pre-cache + runtime cache, and a lightweight offline page.</p>
+        </details>
     </section>
 
     <footer>
