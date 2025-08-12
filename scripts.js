@@ -256,6 +256,7 @@ const TAB_TEMPLATES = {
       <li><span style="color:var(--accent-color);">Favorite Game Genres:</span> MMORPG, Team-Based Shooters, Survival, FPS.</li>
       <li><span style="color:var(--accent-color);">Current Playlist:</span> Lo-fi beats, synthwave, classic rock, progressive metal.</li>
       <li><span style="color:var(--accent-color);">Pet:</span> Matcha, a Pomeranian-Corgi mix who thinks she’s a lap dog.</li>
+      <li><span style="color:var(--accent-color);">Fun Fact:</span> My family and I lived in Okinawa, Japan for 3 years, which sparked my interest in diverse cultures, and it's where Matcha was born.</li>
     </ul>
   </section>
   <section aria-labelledby="tidbits-hdr" style="margin-top:18px;">
@@ -274,20 +275,22 @@ const TAB_TEMPLATES = {
     <p style="margin:6px 0 10px; line-height:1.6;">I spent years splitting time between raising a young family and deploying to places like <strong>Iraq</strong>, <strong>Kuwait</strong>, <strong>Djibouti</strong>, <strong>Yemen</strong>, <strong>Oman</strong>, and <strong>Somalia</strong>. That pace forces you to grow up fast: learn what actually matters, stay calm when context shifts hourly, and build trust quickly with people who may rotate out tomorrow. We scraped by, improvised when support lagged, and kept moving; adapt, stabilize, then improve.</p>
     <p style="margin:6px 0 10px; line-height:1.6;">Those cycles of constraint → ambiguity → iteration feel a lot like engineering: assess the situation, isolate the critical path, reduce noise, and deliver something reliable under pressure. The through-line: adversity is a training loop, you either get brittle or you get better at refactoring yourself.</p>
     <p style="margin:6px 0 0; font-size:0.9rem; color:#9af7e6;">If you want the longer story or how that maps to team velocity & incident response, just ask.</p>
+
+    <details style="margin-top:6px;">
+        <summary style="color: var(--accent-color);"><strong>Why constraints matter</strong></summary>
+        <p style="margin:0px 20px;">Whether in code, art, or leadership, constraints create focus. The pixel avatar is built with that philosophy: fewer colors, stronger intent.</p>
+    </details>
+    <details>
+        <summary style="color: var(--accent-color);"><strong>Favorite small refactor</strong></summary>
+        <p style="margin:0px 20px;">Replacing a nested conditional ladder with a data-driven map + small strategy objects. Fewer branches, easier extension.</p>
+    </details>
+    <details>
+        <summary style="color: var(--accent-color);"><strong>What motivates me</strong></summary>
+        <p style="margin:0px 20px;">Turning ambiguity into a clear plan, then watching team stress drop as structure appears.</p>
+    </details>
+    <p style="margin-top:16px; font-size:0.85rem; color:#9af7e6;">(Spotted something you want to dig into? Feel free to reach out, I love trading notes.)</p>
   </section>
-  <details style="margin-top:14px;">
-    <summary><strong>Why constraints matter</strong></summary>
-    <p style="margin:6px 0 0;">Whether in code, art, or leadership, constraints create focus. The pixel avatar is built with that philosophy: fewer colors, stronger intent.</p>
-  </details>
-  <details>
-    <summary><strong>Favorite small refactor</strong></summary>
-    <p style="margin:6px 0 0;">Replacing a nested conditional ladder with a data-driven map + small strategy objects. Fewer branches, easier extension.</p>
-  </details>
-  <details>
-    <summary><strong>What motivates me</strong></summary>
-    <p style="margin:6px 0 0;">Turning ambiguity into a clear plan, then watching team stress drop as structure appears.</p>
-  </details>
-  <p style="margin-top:16px; font-size:0.85rem; color:#9af7e6;">(Spotted something you want to dig into? Feel free to reach out, I love trading notes.)</p>
+
 </div>`
 };
 
