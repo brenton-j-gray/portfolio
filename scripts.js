@@ -245,21 +245,21 @@ const TAB_TEMPLATES = {
   <p><strong>About the pixel art:</strong> I created this little sprite as a nod to the games that first got me curious about how software worlds are built. Limited palette, chunky shading, and deliberate outlines force clarity of shape, the same way good engineering constraints force clear design.</p>
   <p>Welcome to the hidden room. Since you dug this up, here’s some deeper, human stuff beyond the normal portfolio gloss.</p>
   <section aria-labelledby="trivia-hdr" style="margin-top:14px;">
-    <h4 id="trivia-hdr" style="margin:4px 0 6px; color: var(--tertiary-color);">Quick Trivia</h4>
+    <h4 id="trivia-hdr" style="margin:4px 0 6px; color: var(--highlight-color);">Quick Trivia</h4>
     <ul class="itemList" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
-      <li><span style="color:var(--secondary-color);">Origin:</span> Grew up moving often; learned to adapt fast and build tight-knit teams quickly.</li>
-      <li><span style="color:var(--secondary-color);">Deployments / Moves:</span> 10+ global locations; every new environment = new problem space.</li>
-      <li><span style="color:var(--secondary-color);">Favorite CS Concept:</span> Small, composable abstractions > giant frameworks. (Also: pathfinding + heuristics.)</li>
-      <li><span style="color:var(--secondary-color);">Most-used Dev Ritual:</span> Sketch architecture on paper before touching a keyboard.</li>
-      <li><span style="color:var(--secondary-color);">Learning Loop:</span> Read → build tiny prototype → refactor → explain it back to someone.</li>
-      <li><span style="color:var(--secondary-color);">Coffee Style:</span> Strong + Black; ship first, polish after.</li>
-      <li><span style="color:var(--secondary-color);">Favorite Game Genres:</span> MMORPG, Team-Based Shooters, Survival, FPS.</li>
-      <li><span style="color:var(--secondary-color);">Current Playlist:</span> Lo-fi beats, synthwave, classic rock, progressive metal.</li>
-      <li><span style="color:var(--secondary-color);">Pet:</span> Matcha, a Pomeranian-Corgi mix who thinks she’s a lap dog.</li>
+      <li><span style="color:var(--accent-color);">Origin:</span> Grew up moving often; learned to adapt fast and build tight-knit teams quickly.</li>
+      <li><span style="color:var(--accent-color);">Deployments / Moves:</span> 10+ global locations; every new environment = new problem space.</li>
+      <li><span style="color:var(--accent-color);">Favorite CS Concept:</span> Small, composable abstractions > giant frameworks. (Also: pathfinding + heuristics.)</li>
+      <li><span style="color:var(--accent-color);">Most-used Dev Ritual:</span> Sketch architecture on paper before touching a keyboard.</li>
+      <li><span style="color:var(--accent-color);">Learning Loop:</span> Read → build tiny prototype → refactor → explain it back to someone.</li>
+      <li><span style="color:var(--accent-color);">Coffee Style:</span> Strong + Black; ship first, polish after.</li>
+      <li><span style="color:var(--accent-color);">Favorite Game Genres:</span> MMORPG, Team-Based Shooters, Survival, FPS.</li>
+      <li><span style="color:var(--accent-color);">Current Playlist:</span> Lo-fi beats, synthwave, classic rock, progressive metal.</li>
+      <li><span style="color:var(--accent-color);">Pet:</span> Matcha, a Pomeranian-Corgi mix who thinks she’s a lap dog.</li>
     </ul>
   </section>
   <section aria-labelledby="tidbits-hdr" style="margin-top:18px;">
-    <h4 id="tidbits-hdr" style="margin:4px 0 6px; color: var(--tertiary-color);">Personal Tidbits</h4>
+    <h4 id="tidbits-hdr" style="margin:4px 0 6px; color: var(--highlight-color);">Personal Tidbits</h4>
     <p style="margin:0 0 8px;">A few snapshots about how I think, work, and recharge:</p>
     <ul class="itemList" style="list-style:disc inside; padding:0; margin:0 0 10px; display:flex; flex-direction:column; gap:4px;">
       <li>Teach-first mindset: if I can’t explain it simply, I don’t understand it yet.</li>
@@ -270,7 +270,7 @@ const TAB_TEMPLATES = {
     </ul>
   </section>
   <section aria-labelledby="service-hdr" style="margin-top:18px;">
-    <h4 id="service-hdr" style="margin:4px 0 6px; color: var(--tertiary-color);">Service & Resilience</h4>
+    <h4 id="service-hdr" style="margin:4px 0 6px; color: var(--highlight-color);">Service & Resilience</h4>
     <p style="margin:6px 0 10px; line-height:1.6;">I spent years splitting time between raising a young family and deploying to places like <strong>Iraq</strong>, <strong>Kuwait</strong>, <strong>Djibouti</strong>, <strong>Yemen</strong>, <strong>Oman</strong>, and <strong>Somalia</strong>. That pace forces you to grow up fast: learn what actually matters, stay calm when context shifts hourly, and build trust quickly with people who may rotate out tomorrow. We scraped by, improvised when support lagged, and kept moving; adapt, stabilize, then improve.</p>
     <p style="margin:6px 0 10px; line-height:1.6;">Those cycles of constraint → ambiguity → iteration feel a lot like engineering: assess the situation, isolate the critical path, reduce noise, and deliver something reliable under pressure. The through-line: adversity is a training loop, you either get brittle or you get better at refactoring yourself.</p>
     <p style="margin:6px 0 0; font-size:0.9rem; color:#9af7e6;">If you want the longer story or how that maps to team velocity & incident response, just ask.</p>
@@ -675,7 +675,7 @@ function attachContactFormHandlers() {
             progressBar.style.setProperty('--pct', pct.toFixed(2));
             progressBar.style.width = pct + '%';
         }
-        charCountDisplay.style.color = remaining < 50 ? 'var(--secondary-color)' : '';
+        charCountDisplay.style.color = remaining < 50 ? 'var(--accent-color)' : '';
     }
     if(messageInput){
         messageInput.addEventListener('input', updateCharCount);
