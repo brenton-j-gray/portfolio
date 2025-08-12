@@ -67,14 +67,14 @@
 .tab-content p,
 .tab-content ul,
 .tab-content ol,
-.tab-content li { padding-left: 8; padding-right: 8; }
+.tab-content li { padding-left: 8px; padding-right: 8px; }
 
 /* Normalize inner child widths so all panels appear the same width */
 .tab-content > * { width: 100%; box-sizing: border-box; }
 
 /* Tighten paragraph rhythm and ensure wrapping */
 .tab-content p {
-    color: #aaaaaa;
+    color: var(--text-light-ink);
     line-height: 1.5;                /* was global 2; tighter for readability */
     padding: 10px 0;                /* rely on panel padding for sides */
     overflow-wrap: anywhere;
@@ -307,7 +307,7 @@ body::before {
     margin-right: -18px;
     padding-left: 18px; /* restore internal breathing room */
     padding-right: 18px;
-    width: calc(100%); /* compensate for negative margins */
+    width: 100%; /* compensate for negative margins */
     box-sizing: border-box;
 }
 
