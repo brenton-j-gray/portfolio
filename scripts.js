@@ -806,11 +806,26 @@ function initInterestsCarousel(){
     const nextBtn = root.querySelector('.carousel-btn.next');
     const dots = Array.from(root.querySelectorAll('.dot'));
     let index = 0;
+    // Autoplay settings
+    const AUTOPLAY_INTERVAL = 5000; // ms
+    let autoplayTimer = null;
+    let isAutoplayPaused = false;
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getSlideWidth(){
+        // Prefer first slide's bounding width (accounts for padding/borders). Fallback to viewport width.
+        const first = slides[0];
+        if (first) return first.getBoundingClientRect().width;
+        const vp = root.querySelector('.carousel-viewport');
+        return vp ? vp.getBoundingClientRect().width : root.getBoundingClientRect().width;
+    }
 
     function setActive(i){
         index = (i + slides.length) % slides.length;
-        const offset = -index * 100;
-        track.style.transform = `translateX(${offset}%)`;
+        const slideW = getSlideWidth();
+        if (track) {
+            track.style.transform = `translate3d(${-index * slideW}px,0,0)`;
+        }
         slides.forEach((s, si)=>{ s.classList.toggle('is-active', si === index); s.setAttribute('aria-label', `${si+1} of ${slides.length}`); });
         dots.forEach((d, di)=>{ const active = di === index; d.classList.toggle('is-active', active); d.setAttribute('aria-selected', String(active)); d.setAttribute('tabindex', active ? '0' : '-1'); });
     }
@@ -821,6 +836,27 @@ function initInterestsCarousel(){
     nextBtn?.addEventListener('click', next);
     prevBtn?.addEventListener('click', prev);
     dots.forEach((d, di)=> d.addEventListener('click', ()=> setActive(di)));
+
+    // ----- Autoplay -----
+    function clearAutoplay(){ if (autoplayTimer){ clearTimeout(autoplayTimer); autoplayTimer = null; } }
+    function scheduleAutoplay(){
+        if (isAutoplayPaused || prefersReduced) return; // respect user preference
+        clearAutoplay();
+        autoplayTimer = setTimeout(()=>{
+            next();
+            scheduleAutoplay(); // chain
+        }, AUTOPLAY_INTERVAL);
+    }
+    function pauseAutoplay(){ isAutoplayPaused = true; clearAutoplay(); }
+    function resumeAutoplay(){ if (!prefersReduced){ isAutoplayPaused = false; scheduleAutoplay(); } }
+
+    // Pause on user interaction (hover, focus, pointer, touch)
+    root.addEventListener('mouseenter', pauseAutoplay);
+    root.addEventListener('mouseleave', ()=>{ if (!root.matches(':focus-within')) resumeAutoplay(); });
+    root.addEventListener('focusin', pauseAutoplay);
+    root.addEventListener('focusout', ()=>{ if (!root.matches(':hover')) resumeAutoplay(); });
+    // Reset timer on manual navigation
+    [prevBtn, nextBtn, ...dots].forEach(el => el && el.addEventListener('click', ()=>{ if(!isAutoplayPaused){ scheduleAutoplay(); }}));
 
     // Keyboard control when carousel focused
     root.addEventListener('keydown', (e)=>{
@@ -842,8 +878,12 @@ function initInterestsCarousel(){
         }
     }, {passive:true});
 
-    // Initialize
+    // Initialize & keep centered on resize
+    // Initialize & adjust on resize
     setActive(0);
+    window.addEventListener('resize', ()=> setActive(index));
+    // Kick off autoplay after initial render
+    scheduleAutoplay();
 }
 
 // Parallax for carousel active slide
@@ -858,7 +898,7 @@ function enableCarouselParallax(root){
         const cy = rect.top + rect.height/2;
         const dx = (x - cx) / rect.width; // -0.5..0.5 ish
         const dy = (y - cy) / rect.height;
-        const maxTilt = 10;
+        const maxTilt = 5;
         const rx = (-dy * maxTilt).toFixed(2);
         const ry = (dx * maxTilt).toFixed(2);
         activeCard.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(6px)`;
