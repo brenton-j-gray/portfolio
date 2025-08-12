@@ -193,18 +193,47 @@ const TAB_TEMPLATES = {
     contact: () => `
 <div id="contact">
   <h3 class="panel-title" data-icon="✉️">Contact Me</h3>
-  <form id="contact-form" method="POST" action="https://formspree.io/f/mvgpnlrg" novalidate>
-    <label for="name">Your Name:</label>
-    <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z\s]+" title="Name should only contain letters and spaces.">
-    <label for="email">Your Email:</label>
-    <input type="email" id="email" name="email" required>
-    <label for="message">Your Message:</label>
-    <textarea id="message" name="message" rows="5" required minlength="10" maxlength="500" aria-describedby="char-count"></textarea>
-    <input type="hidden" name="_subject" value="Portfolio Contact Form Submission">
-    <p id="char-count" role="status" aria-live="polite">500 characters remaining</p>
-    <button type="submit">Send Message</button>
-  </form>
-  <p id="form-status" role="status" aria-live="polite"></p>
+    <p class="contact-intro">Have an opportunity, collaboration, or just want to say hi? Drop a line below or use a quick link.</p>
+    <div class="contact-layout">
+        <div class="contact-form-card">
+            <form id="contact-form" method="POST" action="https://formspree.io/f/mvgpnlrg" novalidate>
+                <div class="form-inner">
+                    <div class="field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required minlength="2" maxlength="50" pattern="[A-Za-z .'-]+" autocomplete="name" placeholder="Your name" title="Letters, spaces, periods, apostrophes, and hyphens allowed.">
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+                    </div>
+                    <div class="field">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required minlength="10" maxlength="500" aria-describedby="char-count" placeholder="Ask me a question or share your thoughts..."></textarea>
+                        <div class="char-progress" aria-hidden="true"><div class="char-progress-bar"></div></div>
+                        <p id="char-count" role="status" aria-live="polite">500 characters remaining</p>
+                    </div>
+                    <input type="hidden" name="_subject" value="Portfolio Contact Form Submission">
+                    <button type="submit" class="send-btn"><span class="btn-label">Send Message</span><span class="plane" aria-hidden="true">✈</span></button>
+                    <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+                </div>
+                <div class="form-success" hidden>
+                    <div class="success-icon" aria-hidden="true">✔</div>
+                    <h4 class="success-title" tabindex="-1">Message Sent!</h4>
+                    <p class="success-text">Thanks for reaching out! I'll get back to you soon.</p>
+                    <button type="button" class="reset-form">Send Another</button>
+                </div>
+            </form>
+        </div>
+        <aside class="contact-side" aria-label="Alternate ways to connect">
+            <div class="contact-blurb">Prefer a direct channel?<br> These are instant:</div>
+            <ul class="contact-quick">
+                <li><a class="quick-link" href="mailto:brenton.j.gray@outlook.com?subject=Regarding%20Your%20Portfolio&body=Hello%20Brenton,%20" aria-label="Compose email to Brenton J. Gray about portfolio">📧 Email</a></li>
+                <li><a class="quick-link" href="https://www.linkedin.com/in/brenton-j-gray" target="_blank" rel="noopener" aria-label="LinkedIn profile">💼 LinkedIn</a></li>
+                <li><a class="quick-link" href="https://github.com/brenton-j-gray" target="_blank" rel="noopener" aria-label="GitHub profile">🐙 GitHub</a></li>
+            </ul>
+            <p class="contact-note">I usually reply within 24 hours.</p>
+        </aside>
+    </div>
 </div>`,
     secret: () => `
 <div id="secret">
@@ -458,6 +487,14 @@ function initWhoamiTyper() {
     const body = document.querySelector('#about .terminal-body');
     if (!body) return;
 
+    // Lock in final height so the terminal doesn't visually grow while typing
+    if (!body.__lockedHeight) {
+        const preHeight = body.getBoundingClientRect().height;
+        body.style.minHeight = preHeight + 'px';
+        body.style.height = preHeight + 'px';
+        body.__lockedHeight = preHeight;
+    }
+
     // If already typed once this page load, just ensure final state with blinking caret
     if (window.__whoamiTyped) {
         // Remove placeholder underscore if present and ensure prompt symbols visible
@@ -616,55 +653,80 @@ if ('ontouchstart' in window) simulateHoverOnTouch();
 function attachContactFormHandlers() {
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
-    if (!form || !status) return;
+    if (!form) return;
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const formData = new FormData(form);
+    const successPanel = form.querySelector('.form-success');
+    // Defensive: ensure success panel starts hidden
+    if(successPanel){ successPanel.hidden = true; }
+    const sendBtn = form.querySelector('.send-btn');
+    const resetBtn = form.querySelector('.reset-form');
+    const charCountDisplay = document.getElementById('char-count');
+    const messageInput = document.getElementById('message');
+    const progressWrap = form.querySelector('.char-progress');
+    const progressBar = form.querySelector('.char-progress-bar');
+    const maxChars = 500;
+    function updateCharCount(){
+        if(!messageInput || !charCountDisplay) return;
+        const used = messageInput.value.length;
+        const remaining = maxChars - used;
+        charCountDisplay.textContent = `${remaining} characters remaining`;
+        if(progressBar){
+            const pct = Math.min(100, (used / maxChars) * 100);
+            progressBar.style.setProperty('--pct', pct.toFixed(2));
+            progressBar.style.width = pct + '%';
+        }
+        charCountDisplay.style.color = remaining < 50 ? 'var(--secondary-color)' : '';
+    }
+    if(messageInput){
+        messageInput.addEventListener('input', updateCharCount);
+        updateCharCount();
+    }
+
+    form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        if(!sendBtn) return;
         const name = document.getElementById('name');
         const email = document.getElementById('email');
         const message = document.getElementById('message');
-        status.innerHTML = '';
-        if (name.value.trim() === '' || !/^[A-Za-z\s]+$/.test(name.value)) {
-            status.innerHTML = 'Please enter a valid name (letters and spaces only).';
-            name.focus();
-            return;
-        }
-        if (email.value.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-            status.innerHTML = 'Please enter a valid email address.';
-            email.focus();
-            return;
-        }
-        if (message.value.trim().length < 10 || message.value.trim().length > 500) {
-            status.innerHTML = 'Message must be between 10 and 500 characters.';
-            message.focus();
-            return;
-        }
+        if(status) status.textContent='';
+        const invalid = (field, msg)=>{ if(status){ status.textContent = msg; } field.focus(); field.classList.add('field-error'); setTimeout(()=> field.classList.remove('field-error'), 1600); return true; };
+    if (!name || name.value.trim() === '' || !/^[A-Za-z .'-]+$/.test(name.value)) { if(invalid(name,"Enter a valid name (letters, spaces, . ' -).")) return; }
+        if (!email || email.value.trim() === '' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { if(invalid(email,'Enter a valid email.')) return; }
+        if (!message || message.value.trim().length < 10 || message.value.trim().length > 500) { if(invalid(message,'Message must be 10-500 chars.')) return; }
+        const formData = new FormData(form);
+        sendBtn.disabled = true;
+        form.classList.add('is-sending');
         try {
             const response = await fetch('https://formspree.io/f/mvgpnlrg', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+            form.classList.remove('is-sending');
             if (response.ok) {
-                status.innerHTML = 'Message sent successfully!';
+                if(successPanel){
+                    const inner = form.querySelector('.form-inner');
+                    if(inner) inner.hidden = true;
+                    successPanel.hidden = false;
+                    successPanel.querySelector('.success-title')?.focus();
+                }
                 form.reset();
-                const cc = document.getElementById('char-count');
-                if (cc) cc.textContent = '500 characters remaining';
+                updateCharCount();
             } else {
-                status.innerHTML = 'An error occurred while sending the message.';
+                if(status) status.textContent = 'Send failed. Please try again.';
             }
-        } catch (error) {
-            status.innerHTML = 'An error occurred while sending the message.';
-            console.error('Error sending message:', error);
+        } catch(err){
+            if(status) status.textContent = 'Network error. Please try again.';
+            console.error(err);
+        } finally {
+            sendBtn.disabled = false;
         }
     });
 
-    const messageInput = document.getElementById('message');
-    const charCountDisplay = document.getElementById('char-count');
-    const maxChars = 500;
-    function updateCharCount() {
-        const remainingChars = maxChars - messageInput.value.length;
-        charCountDisplay.textContent = `${remainingChars} characters remaining`;
-        charCountDisplay.style.color = remainingChars < 50 ? 'red' : '';
-    }
-    messageInput.addEventListener('input', updateCharCount);
+    resetBtn?.addEventListener('click', ()=>{
+        const inner = form.querySelector('.form-inner');
+        if(inner) inner.hidden = false;
+        if(successPanel) successPanel.hidden = true;
+        form.querySelector('#name')?.focus();
+    });
+
+    // (Removed quick-copy buttons; email now a direct mailto link)
 }
 
 // ----- Konami Code unlocks Secret tab -----
