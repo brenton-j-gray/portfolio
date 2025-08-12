@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#64ffda" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <title>Learning</title>
+  <path d="M8 26l24-10 24 10-24 10-24-10z"/>
+  <path d="M16 32v12c8 4 16 4 24 0V32"/>
+  <line x1="32" y1="16" x2="32" y2="26"/>
+</svg>
