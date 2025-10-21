@@ -23,6 +23,12 @@ const TAB_TEMPLATES = {
     projects: () => `
 <div id="projects">
   <h3 class="panel-title" data-icon="🗂️">Projects <span style="font-size:0.6rem; font-weight:500; letter-spacing:4px; opacity:1;">(From GitHub)</span></h3>
+  <div class="project-sort" id="project-sort-controls" role="toolbar" aria-label="Project sorting">
+    <button class="chip sort-btn" type="button" data-sort="date" aria-pressed="false">Date</button>
+    <button class="chip sort-btn" type="button" data-sort="language" aria-pressed="true">Language</button>
+    <button class="chip sort-btn" type="button" data-sort="title" aria-pressed="false">Title</button>
+    <button class="chip sort-btn" type="button" data-sort="stars" aria-pressed="false">Stars</button>
+  </div>
   <ul class="projectList" id="github-projects" aria-live="polite"></ul>
 </div>`,
     skills: () => `
@@ -365,77 +371,182 @@ function initDynamicTabs() {
 
 // ----- Data: GitHub repos (cached) -----
 let reposCache = null;
+let currentRepos = [];
+let currentSortKey = 'language';
+let currentSortDirection = 1;
+let projectSortInitialized = false;
+
+function initProjectSortControls() {
+    const controls = document.getElementById('project-sort-controls');
+    if (!controls || controls.__initialized) return;
+    controls.__initialized = true;
+
+    controls.querySelectorAll('button[data-sort]').forEach(btn => {
+        btn.dataset.label = btn.dataset.label || btn.textContent.trim();
+    });
+
+    controls.addEventListener('click', event => {
+        const target = event.target.closest('button[data-sort]');
+        if (!target || !controls.contains(target)) return;
+        handleProjectSortClick(target);
+    });
+}
+
+function handleProjectSortClick(button) {
+    const sortKey = button.getAttribute('data-sort');
+    if (!sortKey) return;
+    if (currentSortKey === sortKey) {
+        currentSortDirection = -currentSortDirection;
+    } else {
+        currentSortKey = sortKey;
+        currentSortDirection = 1;
+    }
+    projectSortInitialized = true;
+    updateProjectSortButtonStates();
+    renderProjectList();
+}
+
+function updateProjectSortButtonStates() {
+    const controls = document.getElementById('project-sort-controls');
+    if (!controls) return;
+    controls.querySelectorAll('button[data-sort]').forEach(btn => {
+        const key = btn.getAttribute('data-sort');
+        const isActive = key === currentSortKey;
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        const label = btn.dataset.label || btn.textContent.trim();
+        if (isActive) {
+            const arrow = currentSortDirection === 1 ? '↑' : '↓';
+            btn.textContent = `${label} ${arrow}`;
+        } else {
+            btn.textContent = label;
+        }
+    });
+}
+
+function getProjectSortValue(repo, key) {
+    switch (key) {
+        case 'date': {
+            const parsed = Date.parse(repo.pushed_at || repo.updated_at || repo.created_at || 0);
+            return Number.isNaN(parsed) ? 0 : parsed;
+        }
+        case 'language':
+            return (repo.language || '').toLowerCase();
+        case 'title':
+            return (repo.name || '').toLowerCase();
+        case 'stars':
+            return Number(repo.stargazers_count) || 0;
+        default:
+            return 0;
+    }
+}
+
+function renderProjectList() {
+    const projectList = document.getElementById('github-projects');
+    if (!projectList) return;
+
+    projectList.innerHTML = '';
+
+    if (!currentRepos.length) {
+        const listItem = document.createElement('li');
+        listItem.textContent = 'No repositories found.';
+        projectList.appendChild(listItem);
+        return;
+    }
+
+    const sortedRepos = [...currentRepos];
+    sortedRepos.sort((a, b) => {
+        const valA = getProjectSortValue(a, currentSortKey);
+        const valB = getProjectSortValue(b, currentSortKey);
+        let comparison;
+        if (typeof valA === 'string' || typeof valB === 'string') {
+            comparison = String(valA).localeCompare(String(valB));
+        } else {
+            comparison = (Number(valA) || 0) - (Number(valB) || 0);
+        }
+        if (comparison === 0) {
+            comparison = a.name.localeCompare(b.name);
+        }
+        return comparison * currentSortDirection;
+    });
+
+    sortedRepos.forEach(repo => {
+        const li = document.createElement('li');
+        li.className = 'project-card';
+
+        const header = document.createElement('div');
+        header.className = 'project-card-header';
+        header.style.display = 'flex';
+        header.style.justifyContent = 'space-between';
+        header.style.alignItems = 'center';
+
+        const link = document.createElement('a');
+        link.href = repo.html_url;
+        link.textContent = repo.name;
+        link.target = '_blank';
+        link.className = 'project-title';
+        header.appendChild(link);
+        li.appendChild(header);
+
+        const badges = document.createElement('div');
+        badges.className = 'project-badges';
+
+        const stars = document.createElement('span');
+        stars.className = 'badge badge-stars';
+        stars.textContent = `${repo.stargazers_count}?`;
+        stars.setAttribute('aria-label', `${repo.stargazers_count} stars`);
+        badges.appendChild(stars);
+
+        if (repo.language) {
+            const lang = document.createElement('span');
+            lang.className = 'badge badge-lang';
+            lang.textContent = repo.language;
+            lang.setAttribute('aria-label', `Primary language ${repo.language}`);
+            badges.appendChild(lang);
+        }
+
+        const updated = document.createElement('span');
+        updated.className = 'badge badge-updated';
+        const date = repo.pushed_at ? new Date(repo.pushed_at) : null;
+        const dateStr = date && !Number.isNaN(date.getTime()) ? date.toLocaleDateString() : '--';
+        updated.textContent = dateStr;
+        updated.setAttribute('aria-label', dateStr === '--' ? 'Last updated date unavailable' : `Last updated ${dateStr}`);
+        badges.appendChild(updated);
+
+        li.appendChild(badges);
+
+        const description = document.createElement('p');
+        description.className = 'project-card-desc';
+        description.textContent = repo.description || 'No description available';
+        li.appendChild(description);
+
+        projectList.appendChild(li);
+    });
+}
+
 async function fetchGitHubRepos() {
     try {
         const projectList = document.getElementById('github-projects');
         if (!projectList) return;
+
         if (!reposCache) {
             const response = await fetch('https://api.github.com/users/brenton-j-gray/repos');
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             reposCache = await response.json();
         }
-        const myRepos = reposCache
-            .filter(repo => !repo.fork)
-            .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
-        projectList.innerHTML = '';
-        if (myRepos.length === 0) {
-            const listItem = document.createElement('li');
-            listItem.textContent = 'No repositories found.';
-            projectList.appendChild(listItem);
-            return;
+
+        const allRepos = Array.isArray(reposCache) ? reposCache : [];
+        currentRepos = allRepos.filter(repo => !repo.fork);
+
+        initProjectSortControls();
+
+        if (!projectSortInitialized) {
+            currentSortKey = 'language';
+            currentSortDirection = 1;
         }
-        myRepos.forEach(repo => {
-            const li = document.createElement('li');
-            li.className = 'project-card';
-            const header = document.createElement('div');
-            header.className = 'project-card-header';
-            header.style.display = 'flex';
-            header.style.justifyContent = 'space-between';
-            header.style.alignItems = 'center';
-            const link = document.createElement('a');
-            link.href = repo.html_url;
-            link.textContent = repo.name;
-            link.target = '_blank';
-            link.className = 'project-title';
-            header.appendChild(link);
-            li.appendChild(header);
 
-            // Badges container
-            const badges = document.createElement('div');
-            badges.className = 'project-badges';
-
-            // Stars badge
-            const stars = document.createElement('span');
-            stars.className = 'badge badge-stars';
-            stars.textContent = `${repo.stargazers_count}★`;
-            stars.setAttribute('aria-label', `${repo.stargazers_count} stars`);
-            badges.appendChild(stars);
-
-            // Language badge (if available)
-            if (repo.language) {
-                const lang = document.createElement('span');
-                lang.className = 'badge badge-lang';
-                lang.textContent = repo.language;
-                lang.setAttribute('aria-label', `Primary language ${repo.language}`);
-                badges.appendChild(lang);
-            }
-
-            // Updated date badge
-            const updated = document.createElement('span');
-            updated.className = 'badge badge-updated';
-            const dateStr = new Date(repo.pushed_at).toLocaleDateString();
-            updated.textContent = dateStr;
-            updated.setAttribute('aria-label', `Last updated ${dateStr}`);
-            badges.appendChild(updated);
-
-            li.appendChild(badges);
-
-            const description = document.createElement('p');
-            description.className = 'project-card-desc';
-            description.textContent = repo.description || 'No description available';
-            li.appendChild(description);
-            projectList.appendChild(li);
-        });
+        updateProjectSortButtonStates();
+        renderProjectList();
+        projectSortInitialized = true;
     } catch (error) {
         console.error('Error fetching GitHub repositories:', error);
         const projectList = document.getElementById('github-projects');

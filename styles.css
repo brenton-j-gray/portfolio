@@ -718,8 +718,11 @@ form button:hover {
 @media (prefers-reduced-motion: reduce){ .carousel-slide .interest-card { transition:none; } }
 
 /* Projects list styling */
-#projects .projectList { list-style:none; margin:16px 0 0; padding:0; display:grid; gap:16px; }
-#projects .project-card { background:#1d2026; border:var(--border-3); border-radius: var(--radius-12); padding:14px 16px 16px; box-shadow: var(--shadow-elev-16); position:relative; overflow:hidden; transition: transform 0.25s cubic-bezier(.22,1,.36,1), box-shadow 0.25s ease, background 0.35s ease; }
+
+div#project-sort-controls.project-sort {padding: 0px; margin: 8px 0 0;}
+
+#projects .projectList { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:10px; }
+#projects .project-card { background:#1d2026; border:var(--border-3); border-radius: var(--radius-12); padding:14px 16px 16px; margin: 0; box-shadow: var(--shadow-elev-16); position:relative; overflow:hidden; transition: transform 0.25s cubic-bezier(.22,1,.36,1), box-shadow 0.25s ease, background 0.35s ease; }
 #projects .project-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 15%, rgba(100,255,218,0.15), transparent 60%); opacity:0; transition:opacity 0.4s ease; pointer-events:none; }
 #projects .project-card:hover::before { opacity:1; }
 #projects .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 0 #000, 0 14px 22px rgba(0,0,0,0.55); }
