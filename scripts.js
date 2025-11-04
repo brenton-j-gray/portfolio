@@ -234,8 +234,8 @@ const TAB_TEMPLATES = {
             <div class="contact-blurb">Prefer a direct channel?<br> These are instant:</div>
             <ul class="contact-quick">
                 <li><a class="quick-link" href="mailto:brenton.j.gray@outlook.com?subject=Regarding%20Your%20Portfolio&body=Hello%20Brenton,%20" aria-label="Compose email to Brenton J. Gray about portfolio">📧 Email</a></li>
-                <li><a class="quick-link" href="https://www.linkedin.com/in/brenton-j-gray" target="_blank" rel="noopener" aria-label="LinkedIn profile">💼 LinkedIn</a></li>
-                <li><a class="quick-link" href="https://github.com/brenton-j-gray" target="_blank" rel="noopener" aria-label="GitHub profile">🐙 GitHub</a></li>
+                <li><a class="quick-link" href="https://www.linkedin.com/in/brenton-gray" target="_blank" rel="noopener" aria-label="LinkedIn profile">💼 LinkedIn</a></li>
+                <li><a class="quick-link" href="https://www.github.com/brenton-j-gray" target="_blank" rel="noopener" aria-label="GitHub profile">🐙 GitHub</a></li>
             </ul>
             <p class="contact-note">I usually reply within 24 hours.</p>
         </aside>
