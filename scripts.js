@@ -194,7 +194,7 @@ const TAB_TEMPLATES = {
       <div class="term-line output">music, writing, travel, design systems</div>
       <div class="term-line"><span class="prompt">$</span> <span class="command">hint</span></div>
       <div class="term-line output">there is also a subtle easter egg for observant visitors.</div>
-      <div class="term-line output">Hint: classic sequence inputs still work.</div>
+      <div class="term-line output">Hint: Ever heard of the Konami Code???</div>
       <div class="term-line"><span class="prompt">$</span> <span class="command">_</span><span class="caret" aria-hidden="true"></span></div>
     </div>
   </div>

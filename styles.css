@@ -2,8 +2,8 @@
 .hidden { display: none !important; }
 
 :root {
-    --font-family-base: "Avenir Next", "Segoe UI Variable", "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    --font-family-heading: "Avenir Next", "Inter", "Segoe UI Variable", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-family-base: "Lato", "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-family-heading: "Garamond", "Times New Roman", serif;
     --color-primary: #4e8098;
     --color-accent: #e71d36;
     --color-bg: #f7f7f2;
@@ -179,11 +179,11 @@ header {
 
 header h1 {
     margin: 0;
-    font-family: var(--font-family-heading);
-    font-size: clamp(2.18rem, 3.35vw, 3rem);
+    font-family: "brush script mt", cursive;
+    font-size: clamp(3rem, 3.35vw, 3rem);
     letter-spacing: 0.012em;
     line-height: 1.08;
-    font-weight: 760;
+    font-weight: 500;
     text-align: left;
 }
 
@@ -375,8 +375,9 @@ header .header-content p:last-child {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 8px 12px;
+    padding: 8px 10px;
     min-height: 38px;
+    min-width: 150px;
     line-height: 1.2;
     border-radius: var(--radius-pill);
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.12));
@@ -444,11 +445,12 @@ section {
 .panel-title {
     margin: 0 0 20px;
     font-family: var(--font-family-heading);
-    font-size: clamp(1.42rem, 2.15vw, 1.86rem);
+    font-size: clamp(2rem, 2.15vw, 1.86rem);
+    text-transform: uppercase;
     color: var(--color-text);
     letter-spacing: 0.008em;
     line-height: 1.2;
-    font-weight: 680;
+    font-weight: 500;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(1, 22, 39, 0.14);
     box-shadow: inset 0 -3px 0 rgba(231, 29, 54, 0.12);
@@ -615,20 +617,26 @@ section {
 /* Skills */
 .skills-filters { margin-bottom: 12px; }
 .skills-list {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 10px;
 }
 
 .skill-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-radius: var(--radius-md);
-    padding: 10px 12px;
+    padding: 12px;
+    min-height: 165px;
+    aspect-ratio: 1 / 1;
 }
 
 .skill-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 10px;
 }
 
 .skill-icon {
@@ -645,7 +653,7 @@ section {
 }
 
 .skill-name { font-weight: 600; }
-.skill-meta { font-size: 0.8rem; }
+.skill-meta { font-size: 0.76rem; }
 
 .skill-bar {
     height: 10px;
@@ -1109,8 +1117,10 @@ a:focus-visible {
         flex-wrap: wrap;
     }
 
-    .skill-row { grid-template-columns: auto 1fr; }
-    .skill-meta { grid-column: 1 / -1; }
+    .skill-item {
+        aspect-ratio: auto;
+        min-height: 150px;
+    }
 
     .interest-card {
         grid-template-columns: 1fr;
