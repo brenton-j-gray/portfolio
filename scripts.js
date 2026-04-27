@@ -2,9 +2,11 @@
 
 // ----- Dynamic single-panel app bootstrap -----
 document.addEventListener('DOMContentLoaded', () => {
-    initDynamicTabs(); // renders initial tab from hash
+    initParallaxPage();
     initKonami();
     initCTA();
+    initJumpNav();
+    initScrollReveal();
     adjustFooterReserve();
     window.addEventListener('resize', adjustFooterReserve);
 });
@@ -22,18 +24,19 @@ function adjustFooterReserve(){
 const TAB_TEMPLATES = {
     projects: () => `
 <div id="projects">
-  <h3 class="panel-title" data-icon="🗂️">Projects <span style="font-size:0.6rem; font-weight:500; letter-spacing:4px; opacity:1;">(From GitHub)</span></h3>
+  <h3 class="panel-title">Project Portfolio <span style="font-size:0.7rem; font-weight:600; letter-spacing:1px; opacity:0.8;">(From GitHub)</span></h3>
   <div class="project-sort" id="project-sort-controls" role="toolbar" aria-label="Project sorting">
-    <button class="chip sort-btn" type="button" data-sort="date" aria-pressed="false">Date</button>
-    <button class="chip sort-btn" type="button" data-sort="language" aria-pressed="true">Language</button>
+    <button class="chip sort-btn" type="button" data-sort="date" aria-pressed="true">Date</button>
+    <button class="chip sort-btn" type="button" data-sort="language" aria-pressed="false">Language</button>
     <button class="chip sort-btn" type="button" data-sort="title" aria-pressed="false">Title</button>
     <button class="chip sort-btn" type="button" data-sort="stars" aria-pressed="false">Stars</button>
   </div>
   <ul class="projectList" id="github-projects" aria-live="polite"></ul>
+  <div id="project-pagination" class="project-pagination" role="navigation" aria-label="Project list pagination"></div>
 </div>`,
     skills: () => `
 <div id="skills">
-  <h3 class="panel-title" data-icon="🛠️">Skills</h3>
+  <h3 class="panel-title">Technical Skills</h3>
   <div class="skills-filters" role="toolbar" aria-label="Skill filters">
     <button class="chip active" type="button" data-filter="all" aria-pressed="true">All</button>
     <button class="chip" type="button" data-filter="language" aria-pressed="false">Languages</button>
@@ -128,27 +131,27 @@ const TAB_TEMPLATES = {
 </div>`,
     interests: () => `
 <div id="interests">
-  <h3 class="panel-title" data-icon="🎮">Current Interests</h3>
+  <h3 class="panel-title">Professional Focus Areas</h3>
   <div id="interests-carousel" class="carousel" role="region" aria-roledescription="carousel" aria-label="Interests carousel" tabindex="0">
     <div class="carousel-viewport">
       <ul class="carousel-track">
         <li id="slide-1" class="carousel-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 6">
-          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/frontend.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Frontend Craft</h4><p class="interest-text">JavaScript, HTML, CSS — building playful, fast UIs.</p></div></div>
+          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/frontend.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Frontend Engineering</h4><p class="interest-text">Building performant, accessible interfaces with strong UX polish.</p></div></div>
         </li>
         <li id="slide-2" class="carousel-slide" role="group" aria-roledescription="slide" aria-label="2 of 6">
-          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/game.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Games & Design</h4><p class="interest-text">Designing and playing games; systems, loops, and juice.</p></div></div>
+          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/game.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Product Design Thinking</h4><p class="interest-text">Applying systems thinking, interaction design, and iteration loops to product work.</p></div></div>
         </li>
         <li id="slide-3" class="carousel-slide" role="group" aria-roledescription="slide" aria-label="3 of 6">
-          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/learning.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Always Learning</h4><p class="interest-text">New tech, patterns, and neat tricks every week.</p></div></div>
+          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/learning.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Continuous Learning</h4><p class="interest-text">Staying current with modern tooling, architecture patterns, and engineering best practices.</p></div></div>
         </li>
         <li id="slide-4" class="carousel-slide" role="group" aria-roledescription="slide" aria-label="4 of 6">
-          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/music.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Writing & Music</h4><p class="interest-text">Creative writing and making music in spare cycles.</p></div></div>
+          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/music.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Creative Practice</h4><p class="interest-text">Writing and music production as disciplines that sharpen pattern recognition and focus.</p></div></div>
         </li>
         <li id="slide-5" class="carousel-slide" role="group" aria-roledescription="slide" aria-label="5 of 6">
-          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/writing.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Story & Narrative</h4><p class="interest-text">Short stories, game lore, and world-building.</p></div></div>
+          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/writing.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Communication & Narrative</h4><p class="interest-text">Using narrative clarity to align teams, communicate intent, and improve execution.</p></div></div>
         </li>
         <li id="slide-6" class="carousel-slide" role="group" aria-roledescription="slide" aria-label="6 of 6">
-          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/travel.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Travel</h4><p class="interest-text">Exploring new places with family — collecting memories.</p></div></div>
+          <div class="interest-card"><div class="interest-icon" aria-hidden="true"><img src="images/travel.svg" alt=""></div><div class="interest-content"><h4 class="interest-title">Global Perspective</h4><p class="interest-text">Travel and diverse environments continue to shape my adaptability and collaboration style.</p></div></div>
         </li>
       </ul>
     </div>
@@ -166,11 +169,11 @@ const TAB_TEMPLATES = {
 </div>`,
     about: () => `
 <div id="about">
-  <h3 class="panel-title" data-icon="👤">About Me</h3>
-  <p>I'm a transitioning U.S. Marine with decades of experience as a technical leader, and a plethora of skills in project management, problem-solving, and cross-team collaboration. I'm drawn to innovation and creativity, and have a lifelong learning and growth mindset. With a solid knowledge base in Computer Science, a unique military background, and a lifelong love for programming, I'm very eager to channel my technical skills and experience into a career in Software Engineering.</p>
-  <p>I'm also into music production, art design, and video game design. When I'm not on a computer, you'll find me enjoying the great outdoors with my wife, three kids, and our dog.</p>
-  <p>I'm excited to bring my discipline, attitude, and technical prowess to the tech world. I'm ready to create some amazing things, solve meaningful problems, and have a amazing time doing it!</p>
-  <p>Reach out if you have a opportunity or just want to chat. Thanks for stopping by!</p>
+  <h3 class="panel-title">Professional Background</h3>
+  <p>I am a transitioning U.S. Marine and software engineer with experience leading technical work in high-pressure environments. My background combines project leadership, disciplined execution, and a strong foundation in Computer Science.</p>
+  <p>I am motivated by meaningful product work, thoughtful collaboration, and continuous improvement. I enjoy building reliable systems, refining user experience details, and helping teams turn ambiguity into clear execution.</p>
+  <p>Outside of engineering, I spend time on music production, design, and writing. Those creative disciplines continue to influence how I approach problem-solving and communication.</p>
+  <p>If you have an opportunity, collaboration idea, or simply want to connect, I would be glad to talk.</p>
   <div class="terminal" role="group" aria-label="whoami terminal snapshot">
     <div class="terminal-header" aria-hidden="true">
       <span class="term-dot term-red"></span>
@@ -188,18 +191,18 @@ const TAB_TEMPLATES = {
       <div class="term-line"><span class="prompt">$</span> <span class="command">stack</span></div>
       <div class="term-line output">C++, JavaScript, HTML, CSS</div>
       <div class="term-line"><span class="prompt">$</span> <span class="command">interests</span></div>
-      <div class="term-line output">games, music, writing, travel</div>
+      <div class="term-line output">music, writing, travel, design systems</div>
       <div class="term-line"><span class="prompt">$</span> <span class="command">hint</span></div>
-      <div class="term-line output">psst… try the Konami code: ↑ ↑ ↓ ↓ ← → ← → b a</div>
-      <div class="term-line output">It unlocks something fun!</div>
+      <div class="term-line output">there is also a subtle easter egg for observant visitors.</div>
+      <div class="term-line output">Hint: classic sequence inputs still work.</div>
       <div class="term-line"><span class="prompt">$</span> <span class="command">_</span><span class="caret" aria-hidden="true"></span></div>
     </div>
   </div>
 </div>`,
     contact: () => `
 <div id="contact">
-  <h3 class="panel-title" data-icon="✉️">Contact Me</h3>
-    <p class="contact-intro">Have an opportunity, collaboration, or just want to say hi? Drop a line below or use a quick link.</p>
+  <h3 class="panel-title">Contact Information</h3>
+    <p class="contact-intro">If you have an opportunity, collaboration, or question, send a message below or use one of the quick links.</p>
     <div class="contact-layout">
         <div class="contact-form-card">
             <form id="contact-form" method="POST" action="https://formspree.io/f/mvgpnlrg" novalidate>
@@ -243,15 +246,15 @@ const TAB_TEMPLATES = {
 </div>`,
     secret: () => `
 <div id="secret">
-  <h3 class="panel-title" data-icon="🎁">Secret Level Unlocked!</h3>
+  <h3 class="panel-title">Personal Insights</h3>
   <figure class="secret-figure" style="margin: 8px auto 12px; text-align:center;">
-    <img src="pixel.png" alt="Pixel art avatar of Brenton" style="max-width:160px; width:100%; height:auto; image-rendering: pixelated; border: var(--border-3); border-radius: var(--radius-12); box-shadow: var(--shadow-elev-16);">
-    <figcaption style="color:#9af7e6; font-size:0.85rem; margin-top:6px;">My pixel personification in 16-bit glory!</figcaption>
+    <img src="pixel.png" alt="Stylized avatar illustration of Brenton" style="max-width:160px; width:100%; height:auto; border: 1px solid #d8e0e6; border-radius: 12px; box-shadow: 0 8px 24px rgba(1, 22, 39, 0.08);">
+    <figcaption style="color:#3f5566; font-size:0.85rem; margin-top:6px;">A small personal easter egg from my creative side.</figcaption>
   </figure>
-  <p><strong>About the pixel art:</strong> I created this little sprite as a nod to the games that first got me curious about how software worlds are built. Limited palette, chunky shading, and deliberate outlines force clarity of shape, the same way good engineering constraints force clear design.</p>
-  <p>Welcome to the hidden room. Since you dug this up, here’s some deeper, human stuff beyond the normal portfolio gloss.</p>
+  <p><strong>About this piece:</strong> I keep this illustration as a reminder that thoughtful constraints often lead to clearer design and better engineering decisions.</p>
+  <p>Thanks for finding this section. Here are a few additional details beyond the primary portfolio view.</p>
   <section aria-labelledby="trivia-hdr" style="margin-top:14px;">
-    <h4 id="trivia-hdr" style="margin:4px 0 6px; color: var(--highlight-color);">Quick Trivia</h4>
+    <h4 id="trivia-hdr" style="margin:4px 0 6px; color: #4e8098;">Additional Notes</h4>
     <ul class="itemList" style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:6px;">
       <li><span style="color:var(--accent-color);">Origin:</span> Grew up moving often; learned to adapt fast and build tight-knit teams quickly.</li>
       <li><span style="color:var(--accent-color);">Deployments / Moves:</span> 10+ global locations; every new environment = new problem space.</li>
@@ -266,7 +269,7 @@ const TAB_TEMPLATES = {
     </ul>
   </section>
   <section aria-labelledby="tidbits-hdr" style="margin-top:18px;">
-    <h4 id="tidbits-hdr" style="margin:4px 0 6px; color: var(--highlight-color);">Personal Tidbits</h4>
+    <h4 id="tidbits-hdr" style="margin:4px 0 6px; color: #4e8098;">Working Principles</h4>
     <p style="margin:0 0 8px;">A few snapshots about how I think, work, and recharge:</p>
     <ul class="itemList" style="list-style:disc inside; padding:0; margin:0 0 10px; display:flex; flex-direction:column; gap:4px;">
       <li>Teach-first mindset: if I can’t explain it simply, I don’t understand it yet.</li>
@@ -277,10 +280,10 @@ const TAB_TEMPLATES = {
     </ul>
   </section>
   <section aria-labelledby="service-hdr" style="margin-top:18px;">
-    <h4 id="service-hdr" style="margin:4px 0 6px; color: var(--highlight-color);">Service & Resilience</h4>
+    <h4 id="service-hdr" style="margin:4px 0 6px; color: #4e8098;">Service & Resilience</h4>
     <p style="margin:6px 0 10px; line-height:1.6;">I spent years splitting time between raising a young family and deploying to places like <strong>Iraq</strong>, <strong>Kuwait</strong>, <strong>Djibouti</strong>, <strong>Yemen</strong>, <strong>Oman</strong>, and <strong>Somalia</strong>. That pace forces you to grow up fast: learn what actually matters, stay calm when context shifts hourly, and build trust quickly with people who may rotate out tomorrow. We scraped by, improvised when support lagged, and kept moving; adapt, stabilize, then improve.</p>
     <p style="margin:6px 0 10px; line-height:1.6;">Those cycles of constraint → ambiguity → iteration feel a lot like engineering: assess the situation, isolate the critical path, reduce noise, and deliver something reliable under pressure. The through-line: adversity is a training loop, you either get brittle or you get better at refactoring yourself.</p>
-    <p style="margin:6px 0 0; font-size:0.9rem; color:#9af7e6;">If you want the longer story or how that maps to team velocity & incident response, just ask.</p>
+    <p style="margin:6px 0 0; font-size:0.9rem; color:#3f5566;">If you want the longer story or how that maps to team velocity & incident response, just ask.</p>
 
     <details style="margin-top:6px;">
         <summary style="color: var(--accent-color);"><strong>Why constraints matter</strong></summary>
@@ -294,87 +297,112 @@ const TAB_TEMPLATES = {
         <summary style="color: var(--accent-color);"><strong>What motivates me</strong></summary>
         <p style="margin:0px 20px;">Turning ambiguity into a clear plan, then watching team stress drop as structure appears.</p>
     </details>
-    <p style="margin-top:16px; font-size:0.85rem; color:#9af7e6;">(Spotted something you want to dig into? Feel free to reach out, I love trading notes.)</p>
+    <p style="margin-top:16px; font-size:0.85rem; color:#3f5566;">(If anything here resonates, feel free to reach out. I enjoy thoughtful conversations on craft and leadership.)</p>
   </section>
 
 </div>`
 };
 
-// ----- Dynamic Tabs Controller -----
-function initDynamicTabs() {
-    const panel = document.getElementById('content-panel');
-    const tabs = Array.from(document.querySelectorAll('nav .tab-link'));
+// ----- Parallax Page Renderer -----
+function initParallaxPage() {
+    const container = document.getElementById('parallax-sections');
+    if (!container) return;
 
-    const isHidden = (t) => t.classList.contains('hidden') || t.getAttribute('aria-hidden') === 'true';
-    const visibleTabs = () => tabs.filter(t => !isHidden(t));
+    const orderedSections = [
+        { id: 'projects', label: 'Project Portfolio' },
+        { id: 'skills', label: 'Technical Skills' },
+        { id: 'interests', label: 'Professional Focus Areas' },
+        { id: 'about', label: 'Professional Background' },
+        { id: 'contact', label: 'Contact Information' },
+        { id: 'secret', label: 'Personal Insights', hidden: true }
+    ];
 
-    function render(id) {
-        const tpl = TAB_TEMPLATES[id];
-        if (!tpl) { panel.innerHTML = ''; return; }
-        panel.innerHTML = tpl();
-        panel.setAttribute('aria-labelledby', `${id}-tab`);
-        // Post-render hooks
-        switch (id) {
-            case 'projects': fetchGitHubRepos(); break;
-            case 'skills': initSkillFilters(); animateSkillBars(); break;
-            case 'about': initWhoamiTyper(); break;
-            case 'interests': initInterestsCarousel(); break;
-            case 'contact': attachContactFormHandlers(); break;
-            case 'secret': /* nothing extra */ break;
-        }
+    container.innerHTML = orderedSections.map((section, idx) => `
+      <section id="band-${section.id}" class="parallax-band${section.hidden ? ' hidden' : ''}" aria-label="${section.label}" data-band-index="${idx}">
+        <div class="parallax-layer" aria-hidden="true"></div>
+        <div class="parallax-content tab-content active" data-section="${section.id}">
+          ${TAB_TEMPLATES[section.id]()}
+        </div>
+      </section>
+    `).join('');
+
+    fetchGitHubRepos();
+    initSkillFilters();
+    animateSkillBars();
+    initWhoamiTyper();
+    initInterestsCarousel();
+    attachContactFormHandlers();
+}
+
+function initScrollReveal() {
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = Array.from(document.querySelectorAll(
+        '.panel-title, .tab-content p, .project-card, .skill-item, .interest-card, .contact-form-card, .contact-side, .terminal'
+    ));
+    if (!targets.length) return;
+
+    if (prefersReduced) {
+        targets.forEach(el => el.classList.add('is-visible'));
+        return;
     }
 
-    function activateById(id, pushHash = true) {
-        let tab = document.querySelector(`nav .tab-link[data-tab="${id}"]`);
-        if (!tab || isHidden(tab)) {
-            tab = visibleTabs()[0];
-            if (!tab) return;
-            id = tab.getAttribute('data-tab');
-            pushHash = true;
-        }
-        tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
-        tab.setAttribute('aria-selected', 'true');
-        if (pushHash) history.replaceState(null, '', `#${id}`);
-        render(id);
-    }
+    targets.forEach((el, idx) => {
+        el.classList.add('reveal-on-scroll');
+        el.style.setProperty('--reveal-delay', `${Math.min(idx * 18, 260)}ms`);
+    });
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', e => {
-            e.preventDefault();
-            if (isHidden(tab)) return;
-            activateById(tab.getAttribute('data-tab'));
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
         });
-        tab.addEventListener('keydown', e => {
-            const vis = visibleTabs();
-            const i = vis.indexOf(tab);
-            if (i === -1) return;
-            let ni = i;
-            if (e.key === 'ArrowRight') ni = (i + 1) % vis.length;
-            else if (e.key === 'ArrowLeft') ni = (i - 1 + vis.length) % vis.length;
-            else if (e.key === 'Home') ni = 0;
-            else if (e.key === 'End') ni = vis.length - 1;
-            else return;
+    }, {
+        root: null,
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.2
+    });
+
+    targets.forEach(el => observer.observe(el));
+}
+
+function initJumpNav() {
+    const jumpLinks = Array.from(document.querySelectorAll('.jump-nav .jump-link[href^="#"]'));
+    const jumpSelect = document.getElementById('jump-nav-select');
+    if (!jumpLinks.length && !jumpSelect) return;
+
+    const scrollToHash = (href) => {
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', href);
+    };
+
+    jumpLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href');
             e.preventDefault();
-            vis[ni].focus();
-            activateById(vis[ni].getAttribute('data-tab'));
+            scrollToHash(href);
         });
     });
 
-    // Initial load
-    const initial = (window.location.hash || '#projects').slice(1);
-    activateById(initial, false);
-
-    // expose for external activation (secret unlock)
-    window.__activateTab = activateById;
-    window.__activateTabDynamic = activateById;
+    if (jumpSelect) {
+        jumpSelect.addEventListener('change', () => {
+            const href = jumpSelect.value;
+            scrollToHash(href);
+        });
+    }
 }
 
 // ----- Data: GitHub repos (cached) -----
 let reposCache = null;
 let currentRepos = [];
-let currentSortKey = 'language';
-let currentSortDirection = 1;
+let currentSortKey = 'date';
+let currentSortDirection = -1;
 let projectSortInitialized = false;
+let projectPage = 1;
+const PROJECTS_PER_PAGE = 5;
 
 function initProjectSortControls() {
     const controls = document.getElementById('project-sort-controls');
@@ -402,6 +430,7 @@ function handleProjectSortClick(button) {
         currentSortDirection = 1;
     }
     projectSortInitialized = true;
+    projectPage = 1;
     updateProjectSortButtonStates();
     renderProjectList();
 }
@@ -442,9 +471,11 @@ function getProjectSortValue(repo, key) {
 
 function renderProjectList() {
     const projectList = document.getElementById('github-projects');
+    const pagination = document.getElementById('project-pagination');
     if (!projectList) return;
 
     projectList.innerHTML = '';
+    if (pagination) pagination.innerHTML = '';
 
     if (!currentRepos.length) {
         const listItem = document.createElement('li');
@@ -469,7 +500,12 @@ function renderProjectList() {
         return comparison * currentSortDirection;
     });
 
-    sortedRepos.forEach(repo => {
+    const totalPages = Math.max(1, Math.ceil(sortedRepos.length / PROJECTS_PER_PAGE));
+    projectPage = Math.min(Math.max(projectPage, 1), totalPages);
+    const pageStart = (projectPage - 1) * PROJECTS_PER_PAGE;
+    const pagedRepos = sortedRepos.slice(pageStart, pageStart + PROJECTS_PER_PAGE);
+
+    pagedRepos.forEach(repo => {
         const li = document.createElement('li');
         li.className = 'project-card';
 
@@ -521,6 +557,38 @@ function renderProjectList() {
 
         projectList.appendChild(li);
     });
+
+    if (pagination && totalPages > 1) {
+        const prevBtn = document.createElement('button');
+        prevBtn.type = 'button';
+        prevBtn.className = 'chip project-page-btn';
+        prevBtn.textContent = 'Previous';
+        prevBtn.disabled = projectPage === 1;
+        prevBtn.addEventListener('click', () => {
+            if (projectPage <= 1) return;
+            projectPage--;
+            renderProjectList();
+        });
+
+        const pageInfo = document.createElement('span');
+        pageInfo.className = 'project-page-info';
+        pageInfo.textContent = `Page ${projectPage} of ${totalPages}`;
+
+        const nextBtn = document.createElement('button');
+        nextBtn.type = 'button';
+        nextBtn.className = 'chip project-page-btn';
+        nextBtn.textContent = 'Next';
+        nextBtn.disabled = projectPage === totalPages;
+        nextBtn.addEventListener('click', () => {
+            if (projectPage >= totalPages) return;
+            projectPage++;
+            renderProjectList();
+        });
+
+        pagination.appendChild(prevBtn);
+        pagination.appendChild(pageInfo);
+        pagination.appendChild(nextBtn);
+    }
 }
 
 async function fetchGitHubRepos() {
@@ -536,12 +604,13 @@ async function fetchGitHubRepos() {
 
         const allRepos = Array.isArray(reposCache) ? reposCache : [];
         currentRepos = allRepos.filter(repo => !repo.fork);
+        projectPage = 1;
 
         initProjectSortControls();
 
         if (!projectSortInitialized) {
-            currentSortKey = 'language';
-            currentSortDirection = 1;
+            currentSortKey = 'date';
+            currentSortDirection = -1;
         }
 
         updateProjectSortButtonStates();
@@ -843,7 +912,7 @@ function attachContactFormHandlers() {
     // (Removed quick-copy buttons; email now a direct mailto link)
 }
 
-// ----- Konami Code unlocks Secret tab -----
+// ----- Konami Code reveals hidden parallax section -----
 function initKonami() {
     const sequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
     let progress = 0;
@@ -862,14 +931,14 @@ function initKonami() {
 }
 
 function unlockSecret() {
-    const secretTab = document.getElementById('secret-tab');
-    if (secretTab) {
-        secretTab.classList.remove('hidden');
-        secretTab.removeAttribute('aria-hidden');
-        secretTab.removeAttribute('tabindex');
-        if (window.__activateTabDynamic) {
-            window.__activateTabDynamic('secret');
-        }
+    const secretBand = document.getElementById('band-secret');
+    const secretJump = document.getElementById('jump-secret');
+    const secretJumpOption = document.getElementById('jump-select-secret');
+    if (secretBand) {
+        secretBand.classList.remove('hidden');
+        if (secretJump) secretJump.classList.remove('hidden');
+        if (secretJumpOption) secretJumpOption.hidden = false;
+        secretBand.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 }
 
@@ -885,10 +954,14 @@ function initCTA() {
             if(!btn) return;
             const full = btn.getAttribute('data-full');
             const short = btn.getAttribute('data-short');
+            const labelEl = btn.querySelector('.sl-label');
+            const nextLabel = compact ? short : full;
             if (compact) {
-                btn.textContent = short;
+                if (labelEl) labelEl.textContent = nextLabel;
+                else btn.textContent = nextLabel;
             } else {
-                btn.textContent = full;
+                if (labelEl) labelEl.textContent = nextLabel;
+                else btn.textContent = nextLabel;
             }
         });
     }

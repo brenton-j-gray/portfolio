@@ -16,71 +16,87 @@
     <meta property="og:url" content="https://brenton-j-gray.github.io/portfolio/">
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="styles.css">
-    <title>Brenton Gray | Software Engineer</title>
+    <title>Portfolio | Brenton Gray</title>
 </head>
 
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header id="header">
-        <h1>Brenton Gray</h1>
-        <h2>Software Engineer</h2>
-        <hr class="fancy-border" style="margin: 5px; border: 0; height: 1px; background-color: #333;">
-        <p>Bachelor of Science in Computer Science</p>
-        <p>U.S. Marine Corps Veteran</p>
-        <p>Active Secret Clearance</p>
+        <span class="header-line">   
+            <span class="header-profile">            
+                <div class="profile-photo-slot" aria-label="Profile photo of Brenton J. Gray" role="img">
+                    <img src="images/profile.jpg" alt="Brenton J. Gray portrait" class="profile-photo">
+                </div>
+                <div class="header-content">
+                    <h1>BRENTON J. GRAY</h1>
+                    <h2>Software Engineer | U.S. Marine Veteran</h2>
+                    <p>Bachelor of Science in Computer Science</p>
+                    <p>Active Secret Clearance</p>
+                </div>
+            </span>
+            <div class="social-links" aria-label="External profiles and quick actions">
+                <a class="social-link linkedin" href="https://linkedin.com/in/brenton-gray" target="_blank" rel="noopener"
+                    aria-label="LinkedIn profile (opens in new tab)">
+                        <span class="sl-inner">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="sl-ico">
+                                <path fill="currentColor"
+                                    d="M4.98 3.5a2.5 2.5 0 1 0 0 5.001 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3zM14.25 9c-2.07 0-3.25 1.13-3.75 2v-2H6.5v12h4v-6.5c0-.83.67-1.5 1.5-1.5.79 0 1.25.54 1.25 1.5V21h4v-7.25C17.25 10.67 16.04 9 14.25 9Z" />
+                            </svg>
+                        <span class="sl-label">LinkedIn</span>
+                    </span>
+                </a>
+                <a class="social-link github" href="https://github.com/brenton-j-gray" target="_blank" rel="noopener"
+                    aria-label="GitHub profile (opens in new tab)">
+                    <span class="sl-inner">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" class="sl-ico">
+                            <path fill="currentColor"
+                                d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.36 1.12 2.94.85.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.05 1.03-2.77-.1-.26-.45-1.3.1-2.72 0 0 .84-.27 2.75 1.06A9.18 9.18 0 0 1 12 6.84c.85.01 1.71.12 2.51.36 1.9-1.33 2.74-1.06 2.74-1.06.55 1.42.2 2.46.1 2.72.64.72 1.03 1.64 1.03 2.77 0 3.96-2.34 4.82-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" />
+                        </svg>
+                        <span class="sl-label">GitHub</span>
+                    </span>
+                </a>
+                <a id="cta-download-resume" class="social-link social-link-action" href="BrentonGray_Resume.pdf" download
+                    data-icon="📄" data-full="Download Resume" data-short="Resume">
+                    <span class="sl-inner">
+                        <span class="sl-label">Download Resume</span>
+                    </span>
+                </a>
+                <a id="cta-book-call" class="social-link social-link-action" href="#" target="_blank" rel="noopener"
+                    data-icon="📞" data-full="Book a Call" data-short="Call">
+                    <span class="sl-inner">
+                        <span class="sl-label">Book a Call</span>
+                    </span>
+                </a>
+            </div>
+        </span>
+        <br>
+        <nav class="jump-nav" aria-label="Jump to sections">
+            <a class="jump-link" href="#band-projects">Projects</a>
+            <a class="jump-link" href="#band-skills">Skills</a>
+            <a class="jump-link" href="#band-interests">Focus</a>
+            <a class="jump-link" href="#band-about">About</a>
+            <a class="jump-link" href="#band-contact">Contact</a>
+            <a id="jump-secret" class="jump-link hidden" href="#band-secret">Insights</a>
+            <label class="jump-select-wrap" for="jump-nav-select">
+                <span class="jump-select-label">Navigate</span>
+                <select id="jump-nav-select" class="jump-select" aria-label="Jump to section">
+                    <option value="">Jump to section...</option>
+                    <option value="#band-projects">Projects</option>
+                    <option value="#band-skills">Skills</option>
+                    <option value="#band-interests">Focus</option>
+                    <option value="#band-about">About</option>
+                    <option value="#band-contact">Contact</option>
+                    <option id="jump-select-secret" value="#band-secret" hidden>Insights</option>
+                </select>
+            </label>
+        </nav>
     </header>
 
     <main id="main" role="main">
-        <div class="social-links" aria-label="External profiles">
-            <a class="social-link linkedin" href="https://linkedin.com/in/brenton-gray" target="_blank" rel="noopener"
-                aria-label="LinkedIn profile (opens in new tab)">
-                <span class="sl-inner">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" class="sl-ico">
-                        <path fill="currentColor"
-                            d="M4.98 3.5a2.5 2.5 0 1 0 0 5.001 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3zM14.25 9c-2.07 0-3.25 1.13-3.75 2v-2H6.5v12h4v-6.5c0-.83.67-1.5 1.5-1.5.79 0 1.25.54 1.25 1.5V21h4v-7.25C17.25 10.67 16.04 9 14.25 9Z" />
-                    </svg>
-                    <span class="sl-label">LinkedIn</span>
-                </span>
-            </a>
-            <a class="social-link github" href="https://github.com/brenton-j-gray" target="_blank" rel="noopener"
-                aria-label="GitHub profile (opens in new tab)">
-                <span class="sl-inner">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" class="sl-ico">
-                        <path fill="currentColor"
-                            d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.31 6.84 9.66.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.9 1.57 2.36 1.12 2.94.85.09-.67.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.09 0-1.13.39-2.05 1.03-2.77-.1-.26-.45-1.3.1-2.72 0 0 .84-.27 2.75 1.06A9.18 9.18 0 0 1 12 6.84c.85.01 1.71.12 2.51.36 1.9-1.33 2.74-1.06 2.74-1.06.55 1.42.2 2.46.1 2.72.64.72 1.03 1.64 1.03 2.77 0 3.96-2.34 4.82-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.59.69.49A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z" />
-                    </svg>
-                    <span class="sl-label">GitHub</span>
-                </span>
-            </a>
-        </div>
-        <nav class="top-section" role="tablist" aria-label="Primary" aria-orientation="horizontal">
-            <a id="projects-tab" class="tab-link" role="tab" data-tab="projects" aria-controls="content-panel"
-                aria-selected="true" href="#projects">Projects</a>
-            <a id="skills-tab" class="tab-link" role="tab" data-tab="skills" aria-controls="content-panel"
-                aria-selected="false" href="#skills">Skills</a>
-            <a id="interests-tab" class="tab-link" role="tab" data-tab="interests" aria-controls="content-panel"
-                aria-selected="false" href="#interests">Interests</a>
-            <a id="about-tab" class="tab-link" role="tab" data-tab="about" aria-controls="content-panel"
-                aria-selected="false" href="#about">About</a>
-            <a id="contact-tab" class="tab-link" role="tab" data-tab="contact" aria-controls="content-panel"
-                aria-selected="false" href="#contact">Contact</a>
-            <a id="secret-tab" class="tab-link hidden" role="tab" data-tab="secret" aria-controls="content-panel"
-                aria-selected="false" aria-hidden="true" tabindex="-1" href="#secret">Secret</a>
-        </nav>
-
-        <!-- Single dynamic panel; content injected based on active tab -->
-        <section id="content-panel" class="tab-content active" role="tabpanel" aria-labelledby="projects-tab"></section>
+        <div id="parallax-sections" class="parallax-sections" aria-live="polite"></div>
     </main>
 
     <footer>
-        <div class="cta-bar" role="complementary" aria-label="Recruiter quick actions">
-            <button id="cta-copy-email" class="cta-btn" type="button" data-icon="✉️" data-full="Copy Email"
-                data-short="Email">Copy Email</button>
-            <a id="cta-download-resume" class="cta-btn" href="BrentonGray_Resume.pdf" download data-icon="📄"
-                data-full="Download Resume" data-short="CV">Download Resume</a>
-            <a id="cta-book-call" class="cta-btn" href="#" target="_blank" rel="noopener" data-icon="📞"
-                data-full="Book a Call" data-short="Call">Book a Call</a>
-        </div>
         <small>&copy; 2025 Brenton Gray</small>
         <small>Built with HTML, CSS, & JS • Hosted on <a href="https://github.com/brenton-j-gray/portfolio" target="_blank">GitHub</a></small>
     </footer>
